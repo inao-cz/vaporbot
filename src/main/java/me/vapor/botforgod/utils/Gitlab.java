@@ -1,5 +1,6 @@
 package me.vapor.botforgod.utils;
 
+import com.google.gson.JsonElement;
 import me.vapor.botforgod.NewMain;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageBuilder;
@@ -10,6 +11,8 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Set;
 
 public class Gitlab {
     private NewMain instance;
@@ -18,7 +21,7 @@ public class Gitlab {
     public Gitlab(NewMain instance) {
         this.instance = instance;
     }
-    public void sendUpdate(TextChannel channel){
+    void sendUpdate(TextChannel channel){
         new MessageBuilder().setEmbed(
                 new EmbedBuilder()
                         .setTitle("Update")
@@ -32,12 +35,12 @@ public class Gitlab {
     }
 
     private String getString(String surl){
-        return new Connectiontoweb("https://git.liquidbounce.net/api/v4/projects/193/" + surl).getContent();
+        return new Connectiontoweb("https://git.liquidbounce.net/api/v4/projects/197/" + surl).getContent();
     }
     public void check(){
         this.changelog = getString("repository/files/CHANGELOG/raw?ref=master");
+        int gitVer = Integer.parseInt(new com.google.gson.JsonParser().parse(changelog).getAsJsonObject().entrySet().iterator().next().getKey());
 
-        int gitVer = Integer.parseInt(changelog.replace(" ","").substring(2,4));
         if(gitVer > instance.getVersion()){
             System.out.println("-----------------------------------");
             System.out.println("Attention all Discord Server Owners.");
