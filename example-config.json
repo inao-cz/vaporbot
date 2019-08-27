@@ -1,0 +1,50 @@
+{
+  "messages": {
+    "messageGenericFail": "Sorry, \"%command%\" has failed. Report this to admins.",
+    "messageGenericSuccess": "Yaaay, \"%command%\" has been executed successfully. :smiley:",
+    "messageGenericNoPerms": "Sorry, you don't have enough permissions to use \"%command%\" :frowning:",
+    "messageGenericArgsErr": "Sorry, not enough or too much arguments provided. Use !help to learn about \"%command%\"",
+    "messageAntipihodaInGroup": "Sorry, you are already in that group :frowning:",
+    "messageAntipihodaJoined": ":confetti_ball: Congratulations :confetti_ball:\nYou just joined Anti-Pihoda group!",
+    "messageApproveAlready": "Wait, you want to do double-approve? It's not needed :slight_smile:",
+    "messageMuteSuccess": "User \"%user\" (ID: \"%id%\") has been muted.",
+    "messageNicksgenErrNums": "Two out of three arguments should be numeric values. Please use !help to learn about \"%command%\"",
+    "messageNicksgenLimit": "You are not allowed to generate more than 50 nicknames at once. Sorry boa :frowning:",
+    "messageNicksgenMinus": "Trying to generate minus or 0? How? :open_mouth:",
+    "messageNicksgenSuccess": "All warez nicknames generated. Sent to the PM!",
+    "messageUnmuteNoMutes": "Sorry, no users are muted right now :frowning:",
+    "messageUnmuteSuccess": "User \"%user\" (ID: \"%id%\") has been unmuted.",
+    "messageUnmuteNotMuted": "Sorry, user isn't muted :frowning:",
+    "messageYoutubeAlreadyLinked": "You are already linked with YouTube account!",
+    "messageYoutubeNotValidId": "It looks like not valid YouTube Channel ID has been provided. Please use ID that looks like this 'UC_x5XG1OV2P6uZZ5FSM9Ttw'",
+    "messageYoutubeAlreadyLinking": "You are already in linking process. Please link your channel",
+    "messageYoutubePM": "Use this code in 'About' tab on your YouTube channel. After that, send command '!youtube verify' to #bot-commands :smiley:",
+    "messageYoutubeSuccess": "YouTube channel \"%ytchannel\" was verified by user \"%user%\". Subscribers when verified: %subs%",
+    "messageYoutubeInvalid": "Cannot validate YouTube Account. This can mean API is down, YouTube account with this ID wasn't found or subscribers are under 100. Removing started link process",
+    "messageYoutubeProcessNotStarted": "Started validation process not found. :frowning:",
+    "messageCountgameComplete": "Congrats, \"%user%\" has completed CountGame :smiley:",
+    "messageCountgameCreate": "CountGame has been created. You can only count in this channel from now on until game ends :smiley: . Number that should be reached is %number%",
+    "messageCountgameClosed": "CountGame has been closed by \"%user%\". :frowning:",
+    "messageCaptchaWelcome": "Hello. To get access to our server, please complete Captcha."
+  },
+  "options": {
+    "production": true,
+    "Antipihoda": true,
+    "Approve": true,
+    "Bans": true,
+    "Count": true,
+    "Delete": true,
+    "Gitlab": true,
+    "Help": true,
+    "Mute": true,
+    "Nicksgen": true,
+    "Unmute": true,
+    "Youtube": true
+  },
+  "apis": {
+    "prefix": "!",
+    "discordProductionApi": "",
+    "discordTestingApi": "",
+    "YouTubeDataApi": ""
+  }
+}
