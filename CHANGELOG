@@ -1,6 +1,9 @@
 {
-    "25": [
-        "+ Captcha system",
-        "+ Config message 'captchaWelcome'"
+    "26": [
+        "+ Command 'status'",
+        "+ Config message 'statusTimeout'",
+        "+ Config message 'statusSuccess",
+        "+ Config option 'Status'"
+        "+ Fix: Captcha system bug"
     ]
 }

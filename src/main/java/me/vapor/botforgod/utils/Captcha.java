@@ -61,6 +61,7 @@ public class Captcha {
                 .setCategory(instance.getApi().getServerById(instance.getId()).get().getChannelCategoriesByName("captcha").get(0))
                 .addPermissionOverwrite(user ,new PermissionsBuilder().setAllowed(PermissionType.READ_MESSAGES).build())
                 .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("captcha").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
+                .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
                 .create().join();
         new Message("Captcha", instance.getConfig().getMessage("messageCaptchaWelcome", null, null), Color.BLACK, new File(imgName + ".png"), channel);
     }

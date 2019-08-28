@@ -18,6 +18,7 @@ import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.UserStatus;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public final class NewMain {
@@ -29,6 +30,7 @@ public final class NewMain {
     private Config config;
     private Countgame countgame = null;
     private int version = 25;
+    private LocalTime statusLimit = LocalTime.now();
     public void init(){
         /*!--------------------------------------------------! Bot init*/
         Gson gson = new Gson();
@@ -77,7 +79,7 @@ public final class NewMain {
         if(config.getOption("Delete")) new Delete(this);
         if(config.getOption("Mute")) new Mute(this);
         if(config.getOption("Nicksgen")) new Nicksgen(this);
-        if(config.getOption("Skid")) new Skid(this);
+        if(config.getOption("Status")) new Status(this);
         if(config.getOption("Unmute")) new Unmute(this);
         if(config.getOption("Youtube")) new Youtube(this);
         if(!config.getOption("production")){
@@ -109,11 +111,18 @@ public final class NewMain {
     public ArrayList<Captcha> getCaptchas() {
         return captchas;
     }
+    public LocalTime getStatusLimit() {
+        return statusLimit;
+    }
     /*!--------------------------------------------------!*/
 
     /*!--------------------------------------------------! Setters*/
     public void setCountgame(Countgame countgame) {
         this.countgame = countgame;
+    }
+
+    public void setStatusLimit(LocalTime statusLimit) {
+        this.statusLimit = statusLimit;
     }
     /*!--------------------------------------------------!*/
 }

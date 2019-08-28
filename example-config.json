@@ -25,10 +25,12 @@
     "messageCountgameComplete": "Congrats, \"%user%\" has completed CountGame :smiley:",
     "messageCountgameCreate": "CountGame has been created. You can only count in this channel from now on until game ends :smiley: . Number that should be reached is %number%",
     "messageCountgameClosed": "CountGame has been closed by \"%user%\". :frowning:",
-    "messageCaptchaWelcome": "Hello. To get access to our server, please complete Captcha."
+    "messageCaptchaWelcome": "Hello. To get access to our server, please complete Captcha.",
+    "messageStatusTimeout": "Sorry, this command is cooldowned to 5 minutes. Next possible use is at %time%",
+    "messageStatusSuccess": "Skid server is %stat% right now!"
   },
   "options": {
-    "production": true,
+    "production": false,
     "Antipihoda": true,
     "Approve": true,
     "Bans": true,
@@ -38,6 +40,7 @@
     "Help": true,
     "Mute": true,
     "Nicksgen": true,
+    "Status": true,
     "Unmute": true,
     "Youtube": true
   },
