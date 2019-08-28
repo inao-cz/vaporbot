@@ -3,7 +3,7 @@
         "+ Command 'status'",
         "+ Config message 'statusTimeout'",
         "+ Config message 'statusSuccess",
-        "+ Config option 'Status'"
+        "+ Config option 'Status'",
         "+ Fix: Captcha system bug"
     ]
 }
