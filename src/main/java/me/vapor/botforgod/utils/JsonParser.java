@@ -10,7 +10,7 @@ public class JsonParser {
         for(JsonElement element : object.get(section).getAsJsonArray()){
             builder.append("**").append(element.getAsString()).append("**").append("\n");
         }
-        return builder.toString().replace("+", "[+]").replace("-", "[-]");
+        return builder.toString().replace("+", "[+]").replace("-", "[-]").replace("_", "[Comment]");
     }
     public JsonObject parseObject(String json){
         return new com.google.gson.JsonParser().parse(json).getAsJsonObject();

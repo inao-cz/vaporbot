@@ -1,9 +1,7 @@
 {
-    "26": [
-        "+ Command 'status'",
-        "+ Config message 'statusTimeout'",
-        "+ Config message 'statusSuccess",
-        "+ Config option 'Status'"
-        "+ Fix: Captcha system bug"
+    "27": [
+        "- Command 'skid'",
+        "- Command 'status'"
+        "_ These are only temporarily changed. I removed these because of Skid server downtime."
     ]
 }

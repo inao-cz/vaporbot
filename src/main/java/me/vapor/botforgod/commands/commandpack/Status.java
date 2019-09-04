@@ -17,7 +17,7 @@ public class Status extends Command {
     public void onCommand(Message message, NewMain instance, String[] args) {
         if(!(LocalTime.now().isAfter(instance.getStatusLimit()))){
             new me.vapor.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageStatusTimeout", new String[][]{
-                    {"%time%", instance.getStatusLimit().format(DateTimeFormatter.ofPattern("HH:mm"))}
+                    {"%time%", instance.getStatusLimit().format(DateTimeFormatter.ofPattern("HH:mm:ss"))}
             }, this), Color.BLACK, message.getChannel());
             return;
         }
