@@ -1,9 +1,6 @@
 {
-    "26": [
-        "+ Command 'status'",
-        "+ Config message 'statusTimeout'",
-        "+ Config message 'statusSuccess",
-        "+ Config option 'Status'",
-        "+ Fix: Captcha system bug"
+    "27": [
+        "- Command 'skid' (Only temp)",
+        "- Command 'status' (Only temp)"
     ]
 }
