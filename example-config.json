@@ -28,7 +28,7 @@
     "messageCaptchaWelcome": "Hello. To get access to our server, please complete Captcha."
   },
   "options": {
-    "production": false,
+    "production": true,
     "Antipihoda": true,
     "Approve": true,
     "Bans": true,
@@ -38,6 +38,7 @@
     "Help": true,
     "Mute": true,
     "Nicksgen": true,
+    "Skid": true,
     "Unmute": true,
     "Youtube": true
   },
