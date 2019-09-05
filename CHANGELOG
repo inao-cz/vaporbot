@@ -1,7 +1,7 @@
 {
-    "27": [
-        "- Command 'skid'",
+    "28": [
+        "+ Command 'skid'",
         "- Command 'status'",
-        "_ These are only temporarily changed. I removed these because of Skid server downtime."
+        "_ Integrated status check into Skid command using URLConnection#setConnectionTimeout."
     ]
 }

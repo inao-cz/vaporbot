@@ -29,7 +29,7 @@ public final class NewMain {
     private DiscordApi api;
     private Config config;
     private Countgame countgame = null;
-    private int version = 27;
+    private int version = 28;
     private LocalTime statusLimit = LocalTime.now();
     public void init(){
         /*!--------------------------------------------------! Bot init*/
@@ -79,8 +79,7 @@ public final class NewMain {
         if(config.getOption("Delete")) new Delete(this);
         if(config.getOption("Mute")) new Mute(this);
         if(config.getOption("Nicksgen")) new Nicksgen(this);
-        //if(config.getOption("Skid")) new Skid(this);
-        //if(config.getOption("Status")) new Status(this);
+        if(config.getOption("Skid")) new Skid(this);
         if(config.getOption("Unmute")) new Unmute(this);
         if(config.getOption("Youtube")) new Youtube(this);
         if(!config.getOption("production")){
