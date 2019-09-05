@@ -1,7 +1,6 @@
 {
-    "28": [
-        "+ Command 'skid'",
-        "- Command 'status'",
-        "_ Integrated status check into Skid command using URLConnection#setConnectionTimeout."
+    "29": [
+        "+ Added continue mode to CountGame",
+        "- Server name changer"
     ]
 }

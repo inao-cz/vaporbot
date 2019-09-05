@@ -21,12 +21,15 @@ public class Count extends Command {
             new me.vapor.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
             return;
         }
-        if(args.length != 1){
+        if(args.length < 1 || args.length > 2){
             new me.vapor.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericArgsErr", null, this), Color.RED, message.getChannel());
             return;
         }
         try{
             Long.parseLong(args[0]);
+            if(args.length == 2){
+                Long.parseLong(args[1]);
+            }
         }catch (NumberFormatException | NullPointerException e){
             new me.vapor.botforgod.utils.Message("Error!", instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
             return;
@@ -35,6 +38,10 @@ public class Count extends Command {
             new me.vapor.botforgod.utils.Message("Error!", instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
             return;
         }
-        instance.setCountgame(new Countgame(instance, 0, Long.parseLong(args[0]), message.getChannel()));
+        if(args.length == 1){
+            instance.setCountgame(new Countgame(instance, 0, Long.parseLong(args[0]), message.getChannel()));
+            return;
+        }
+        instance.setCountgame(new Countgame(instance, Long.parseLong(args[1]), Long.parseLong(args[0]), message.getChannel()));
     }
 }

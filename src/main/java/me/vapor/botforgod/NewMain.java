@@ -8,7 +8,6 @@ import me.vapor.botforgod.listeners.MessageListener;
 import me.vapor.botforgod.listeners.BanListener;
 import me.vapor.botforgod.listeners.JoinListener;
 import me.vapor.botforgod.utils.Captcha;
-import me.vapor.botforgod.utils.Changer;
 import me.vapor.botforgod.utils.Countgame;
 import me.vapor.botforgod.utils.Gitlab;
 import org.javacord.api.DiscordApi;
@@ -29,8 +28,7 @@ public final class NewMain {
     private DiscordApi api;
     private Config config;
     private Countgame countgame = null;
-    private int version = 28;
-    private LocalTime statusLimit = LocalTime.now();
+    private int version = 29;
     public void init(){
         /*!--------------------------------------------------! Bot init*/
         Gson gson = new Gson();
@@ -49,7 +47,6 @@ public final class NewMain {
                 }
             }
         }
-
         if(config.getOption("production")){
             api = new DiscordApiBuilder().setToken(config.getApi("discordProductionApi")).login().join();
         }else{
@@ -61,9 +58,7 @@ public final class NewMain {
 
         /*!--------------------------------------------------! Listener start*/
         api.getServers().forEach(server -> id=server);
-
         if(this.getConfig().getOption("Gitlab")) new Gitlab(this).check();
-        new Changer(this);
         api.addMessageCreateListener(new MessageListener(this));
         if(config.getOption("production")){
             api.addServerMemberJoinListener(new JoinListener(this));
@@ -111,18 +106,11 @@ public final class NewMain {
     public ArrayList<Captcha> getCaptchas() {
         return captchas;
     }
-    public LocalTime getStatusLimit() {
-        return statusLimit;
-    }
     /*!--------------------------------------------------!*/
 
     /*!--------------------------------------------------! Setters*/
     public void setCountgame(Countgame countgame) {
         this.countgame = countgame;
-    }
-
-    public void setStatusLimit(LocalTime statusLimit) {
-        this.statusLimit = statusLimit;
     }
     /*!--------------------------------------------------!*/
 }
