@@ -9,6 +9,7 @@ import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.util.logging.ExceptionLogger;
 import java.awt.*;
+import java.io.File;
 
 public class Gitlab {
     private NewMain instance;
@@ -21,7 +22,7 @@ public class Gitlab {
         new MessageBuilder().setEmbed(
                 new EmbedBuilder()
                         .setTitle("Update")
-                        .setDescription("Version: " + instance.getVersion() + "\nChangelog:\n" + getChangelog() + "\nProduction: " + instance.getConfig().getOption("production"))
+                        .setDescription("Version: " + instance.getVersion() + "\nChangelog:\n" + getChangelog() + "\nProduction: " + instance.getConfig().getSetting("production"))
                         .setColor(Color.orange)
         ).send(channel).exceptionally(ExceptionLogger.get());
     }
@@ -52,8 +53,8 @@ public class Gitlab {
             System.exit(0);
         }
 
-        java.io.File f = new FileOperation().getFile("version.txt");
-        if(f.isFile()){
+        File f = new FileOperation().getFile("version.txt");
+        if(f.length() != 0){
             try{
                 if(Integer.parseInt(new FileOperation().readFile(f)) != instance.getVersion()){
                     sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
@@ -64,10 +65,8 @@ public class Gitlab {
             }
         }else{
             try{
-                if(f.createNewFile()){
-                    new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
-                    sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
-                }
+                new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
+                sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
             }catch (Exception e){
                 e.printStackTrace();
             }

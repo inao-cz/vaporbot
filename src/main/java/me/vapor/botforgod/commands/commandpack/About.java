@@ -13,6 +13,6 @@ public final class About extends Command {
 
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
-        new me.vapor.botforgod.utils.Message(message.getAuthor(), "About.", "About this bot:\nVersion: b" + instance.getVersion() + "\nProduction: " + instance.getConfig().getOption("production") + "\nWritten by LiquidDev and vapor.", Color.magenta, message.getChannel());
+        new me.vapor.botforgod.utils.Message(message.getAuthor(), "About.", "About this bot:\nVersion: b" + instance.getVersion() + "\nProduction: " + instance.getConfig().getSetting("production") + "\nWritten by LiquidDev and vapor.", Color.magenta, message.getChannel());
     }
 }
