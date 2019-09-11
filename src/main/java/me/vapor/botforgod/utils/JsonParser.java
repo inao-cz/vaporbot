@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class JsonParser {
-    String getGitlabJson(String json, String section){
+    public String getGitlabJson(String json, String section){
         JsonObject object = new com.google.gson.JsonParser().parse(json).getAsJsonObject();
         StringBuilder builder = new StringBuilder();
         for(JsonElement element : object.get(section).getAsJsonArray()){

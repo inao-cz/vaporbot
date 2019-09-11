@@ -1,6 +1,11 @@
 {
-    "29": [
-        "+ Added continue mode to CountGame",
-        "- Server name changer"
+    "30": [
+        "+ Added command 'ticket'",
+        "+ Created options in config",
+        "+ Moved prefix into options",
+        "+ Renamed old options to settings",
+        "+ Added pom.xml on git",
+        "+ Added FileOperation utility",
+        "+ Added 'ticket' setting in config"
     ]
 }

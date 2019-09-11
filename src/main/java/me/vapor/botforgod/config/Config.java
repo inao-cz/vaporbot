@@ -10,9 +10,13 @@ public class Config {
     @Expose
     private LinkedTreeMap<String, String> messages;
 
+    @SerializedName("settings")
+    @Expose
+    private LinkedTreeMap<String, Boolean> settings;
+
     @SerializedName("options")
     @Expose
-    private LinkedTreeMap<String, Boolean> options;
+    private LinkedTreeMap<String, String> options;
 
     @SerializedName("apis")
     @Expose
@@ -31,7 +35,9 @@ public class Config {
         return msg;
     }
 
-    public boolean getOption(String key){
+    public boolean getSetting(String key){ return settings.get(key); }
+
+    public String getOption(String key){
         return options.get(key);
     }
 

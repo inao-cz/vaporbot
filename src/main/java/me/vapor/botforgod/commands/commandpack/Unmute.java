@@ -5,7 +5,7 @@ import me.vapor.botforgod.commands.Command;
 import org.javacord.api.entity.message.Message;
 import java.awt.*;
 
-public class Unmute extends Command {
+public final class Unmute extends Command {
     private NewMain instance;
     public Unmute(NewMain instance){
         super(instance, "unmute", "unmute <id>", new String[]{"unmut"});

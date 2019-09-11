@@ -2,7 +2,7 @@ package me.vapor.botforgod.listeners;
 
 import me.vapor.botforgod.commands.Command;
 import me.vapor.botforgod.NewMain;
-import me.vapor.botforgod.utils.Captcha;
+import me.vapor.botforgod.classes.Captcha;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
@@ -52,13 +52,13 @@ public final class MessageListener implements MessageCreateListener {
             }
         }
 
-        if(instance.getCountgame() != null && !event.getMessage().getContent().startsWith(instance.getConfig().getApi("prefix"))){
+        if(instance.getCountgame() != null && !event.getMessage().getContent().startsWith(instance.getConfig().getOption("prefix"))){
             instance.getCountgame().onSend(event.getMessage());
             return;
         }
 
         //return if messages are empty or not starting with prefix
-        if (event.getMessage().getContent().isEmpty() || !event.getMessage().getContent().startsWith(String.valueOf(instance.getConfig().getApi("prefix"))) || event.getMessage().isPrivateMessage() || event.getMessage().getContent().equals(instance.getConfig().getApi("prefix"))){
+        if (event.getMessage().getContent().isEmpty() || !event.getMessage().getContent().startsWith(String.valueOf(instance.getConfig().getOption("prefix"))) || event.getMessage().isPrivateMessage() || event.getMessage().getContent().equals(instance.getConfig().getOption("prefix"))){
             return;
         }
         final Message msg = event.getMessage();

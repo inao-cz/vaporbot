@@ -2,11 +2,11 @@ package me.vapor.botforgod.commands.commandpack;
 
 import me.vapor.botforgod.NewMain;
 import me.vapor.botforgod.commands.Command;
-import me.vapor.botforgod.utils.Countgame;
+import me.vapor.botforgod.classes.Countgame;
 import org.javacord.api.entity.message.Message;
 import java.awt.*;
 
-public class Count extends Command {
+public final class Count extends Command {
     public Count(NewMain instance) {
         super(instance, "count", "count <finish>", null);
     }

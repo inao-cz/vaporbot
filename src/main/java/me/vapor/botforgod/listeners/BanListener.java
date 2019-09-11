@@ -6,7 +6,7 @@ import org.javacord.api.event.server.member.ServerMemberBanEvent;
 import org.javacord.api.listener.server.member.ServerMemberBanListener;
 import java.awt.*;
 
-public class BanListener implements ServerMemberBanListener {
+public final class BanListener implements ServerMemberBanListener {
     private NewMain instance;
     public BanListener(NewMain instance){
         this.instance = instance;
@@ -15,7 +15,11 @@ public class BanListener implements ServerMemberBanListener {
     public void onServerMemberBan(ServerMemberBanEvent serverMemberBanEvent) {
         serverMemberBanEvent.requestBan().join().ifPresent(ban ->
         {
-            new Message("Ban.", "User " + ban.getUser().getDiscriminatedName() + " has been banned from this server.", Color.black, ban.getServer().getChannelsByName("public-bans").get(0).asTextChannel().get());
+            new Message("Ban.", instance.getConfig().getMessage("messageBannedSuccess",
+                    new String[][]{
+                            {"%user%", ban.getUser().getDiscriminatedName()},
+                            {"%id%", ban.getUser().getIdAsString()}
+                    }, null), Color.black, ban.getServer().getChannelsByName("public-bans").get(0).asTextChannel().get());
         });
     }
 }

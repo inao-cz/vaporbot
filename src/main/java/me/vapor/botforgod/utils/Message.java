@@ -30,4 +30,7 @@ public final class Message {
         }
         image.delete();
     }
+    public Message(String title, String message, Color color, ServerTextChannel channel){
+        new MessageBuilder().setEmbed(new EmbedBuilder().setTitle(title).setDescription(message).setColor(color)).send(channel).exceptionally(ExceptionLogger.get());
+    }
 }

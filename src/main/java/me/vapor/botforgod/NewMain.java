@@ -7,9 +7,9 @@ import me.vapor.botforgod.config.Config;
 import me.vapor.botforgod.listeners.MessageListener;
 import me.vapor.botforgod.listeners.BanListener;
 import me.vapor.botforgod.listeners.JoinListener;
-import me.vapor.botforgod.utils.Captcha;
-import me.vapor.botforgod.utils.Countgame;
-import me.vapor.botforgod.utils.Gitlab;
+import me.vapor.botforgod.classes.Captcha;
+import me.vapor.botforgod.classes.Countgame;
+import me.vapor.botforgod.classes.Gitlab;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -17,7 +17,6 @@ import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.UserStatus;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public final class NewMain {
@@ -28,7 +27,7 @@ public final class NewMain {
     private DiscordApi api;
     private Config config;
     private Countgame countgame = null;
-    private int version = 29;
+    private int version = 30;
     public void init(){
         /*!--------------------------------------------------! Bot init*/
         Gson gson = new Gson();
@@ -47,7 +46,7 @@ public final class NewMain {
                 }
             }
         }
-        if(config.getOption("production")){
+        if(config.getSetting("production")){
             api = new DiscordApiBuilder().setToken(config.getApi("discordProductionApi")).login().join();
         }else{
             api = new DiscordApiBuilder().setToken(config.getApi("discordTestingApi")).login().join();
@@ -58,26 +57,27 @@ public final class NewMain {
 
         /*!--------------------------------------------------! Listener start*/
         api.getServers().forEach(server -> id=server);
-        if(this.getConfig().getOption("Gitlab")) new Gitlab(this).check();
+        if(this.getConfig().getSetting("Gitlab")) new Gitlab(this).check();
         api.addMessageCreateListener(new MessageListener(this));
-        if(config.getOption("production")){
+        if(config.getSetting("production")){
             api.addServerMemberJoinListener(new JoinListener(this));
-            if(config.getOption("Bans")) api.addServerMemberBanListener(new BanListener(this));
+            if(config.getSetting("Bans")) api.addServerMemberBanListener(new BanListener(this));
         }
         /*!--------------------------------------------------!*/
 
         /*!--------------------------------------------------! Command registration*/
         new About(this);
-        if(config.getOption("Antipihoda")) new Antipihoda(this);
-        if(config.getOption("Approve")) new Approve(this);
-        if(config.getOption("Count")) new Count(this);
-        if(config.getOption("Delete")) new Delete(this);
-        if(config.getOption("Mute")) new Mute(this);
-        if(config.getOption("Nicksgen")) new Nicksgen(this);
-        if(config.getOption("Skid")) new Skid(this);
-        if(config.getOption("Unmute")) new Unmute(this);
-        if(config.getOption("Youtube")) new Youtube(this);
-        if(!config.getOption("production")){
+        if(config.getSetting("Antipihoda")) new Antipihoda(this);
+        if(config.getSetting("Approve")) new Approve(this);
+        if(config.getSetting("Count")) new Count(this);
+        if(config.getSetting("Delete")) new Delete(this);
+        if(config.getSetting("Mute")) new Mute(this);
+        if(config.getSetting("Nicksgen")) new Nicksgen(this);
+        if(config.getSetting("Skid")) new Skid(this);
+        if(config.getSetting("Ticket")) new Ticket(this);
+        if(config.getSetting("Unmute")) new Unmute(this);
+        if(config.getSetting("Youtube")) new Youtube(this);
+        if(!config.getSetting("production")){
             new Ping(this);
         }
         new Help(this); //help should be last command.

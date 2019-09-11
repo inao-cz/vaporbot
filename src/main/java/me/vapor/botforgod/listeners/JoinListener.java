@@ -1,7 +1,7 @@
 package me.vapor.botforgod.listeners;
 
 import me.vapor.botforgod.NewMain;
-import me.vapor.botforgod.utils.Captcha;
+import me.vapor.botforgod.classes.Captcha;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
@@ -28,7 +28,7 @@ public final class JoinListener implements ServerMemberJoinListener {
                             ).send(textChannel)
                     );
                 }
-                if(instance.getConfig().getOption("Approve")){
+                if(instance.getConfig().getSetting("Approve")){
                     server.getRolesByName("captcha").get(0).addUser(user);
                     new Captcha(instance, serverMemberJoinEvent.getUser());
                 }

@@ -1,6 +1,8 @@
-package me.vapor.botforgod.utils;
+package me.vapor.botforgod.classes;
 
 import me.vapor.botforgod.NewMain;
+import me.vapor.botforgod.utils.Message;
+import me.vapor.botforgod.utils.Renderer;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.ServerTextChannelBuilder;
 import org.javacord.api.entity.permission.PermissionType;
@@ -62,7 +64,8 @@ public class Captcha {
                 .addPermissionOverwrite(user ,new PermissionsBuilder().setAllowed(PermissionType.READ_MESSAGES).build())
                 .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("captcha").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
                 .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
-                .create().join();
+                .create()
+                .join();
         new Message("Captcha", instance.getConfig().getMessage("messageCaptchaWelcome", null, null), Color.BLACK, new File(imgName + ".png"), channel);
     }
 }

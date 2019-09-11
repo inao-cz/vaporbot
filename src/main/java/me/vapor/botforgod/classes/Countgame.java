@@ -1,4 +1,4 @@
-package me.vapor.botforgod.utils;
+package me.vapor.botforgod.classes;
 
 import me.vapor.botforgod.NewMain;
 import org.javacord.api.entity.channel.TextChannel;

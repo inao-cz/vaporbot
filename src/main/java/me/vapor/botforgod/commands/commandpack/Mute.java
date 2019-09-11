@@ -6,7 +6,7 @@ import org.javacord.api.entity.message.Message;
 
 import java.awt.*;
 
-public class Mute extends Command {
+public final class Mute extends Command {
     private NewMain instance;
     public Mute(NewMain instance){
         super(instance, "mute", "mute <id>", new String[]{"mut"});

@@ -7,7 +7,8 @@
     "messageAntipihodaInGroup": "Sorry, you are already in that group :frowning:",
     "messageAntipihodaJoined": ":confetti_ball: Congratulations :confetti_ball:\nYou just joined Anti-Pihoda group!",
     "messageApproveAlready": "Wait, you want to do double-approve? It's not needed :slight_smile:",
-    "messageMuteSuccess": "User \"%user\" (ID: \"%id%\") has been muted.",
+    "messageBannedSuccess": "User \"%user%\" (ID: \"%id%\") has been banned.",
+    "messageMuteSuccess": "User \"%user%\" (ID: \"%id%\") has been muted.",
     "messageNicksgenErrNums": "Two out of three arguments should be numeric values. Please use !help to learn about \"%command%\"",
     "messageNicksgenLimit": "You are not allowed to generate more than 50 nicknames at once. Sorry boa :frowning:",
     "messageNicksgenMinus": "Trying to generate minus or 0? How? :open_mouth:",
@@ -27,7 +28,7 @@
     "messageCountgameClosed": "CountGame has been closed by \"%user%\". :frowning:",
     "messageCaptchaWelcome": "Hello. To get access to our server, please complete Captcha."
   },
-  "options": {
+  "settings": {
     "production": true,
     "Antipihoda": true,
     "Approve": true,
@@ -39,11 +40,14 @@
     "Mute": true,
     "Nicksgen": true,
     "Skid": true,
+    "Ticket": true,
     "Unmute": true,
     "Youtube": true
   },
+  "options":{
+    "prefix": "!"
+  },
   "apis": {
-    "prefix": "!",
     "discordProductionApi": "",
     "discordTestingApi": "",
     "YouTubeDataApi": "",

@@ -1,18 +1,14 @@
-package me.vapor.botforgod.utils;
+package me.vapor.botforgod.classes;
 
-import com.google.gson.JsonElement;
 import me.vapor.botforgod.NewMain;
+import me.vapor.botforgod.utils.Connectiontoweb;
+import me.vapor.botforgod.utils.FileOperation;
+import me.vapor.botforgod.utils.JsonParser;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.util.logging.ExceptionLogger;
 import java.awt.*;
-import java.io.FileWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Set;
 
 public class Gitlab {
     private NewMain instance;
@@ -50,18 +46,18 @@ public class Gitlab {
             System.out.println("Please, update.");
             System.out.println("Shutting down, now.");
             System.out.println("-----------------------------------");
+            instance.getApi().getServerById(instance.getId()).get()
+                    .createTextChannelBuilder().setName("updator").create().join()
+                    .sendMessage("vaporbot has been updated. Shutting down now!");
             System.exit(0);
         }
 
-        java.io.File f = new java.io.File("version.txt");
+        java.io.File f = new FileOperation().getFile("version.txt");
         if(f.isFile()){
             try{
-                byte[] encoded = Files.readAllBytes(Paths.get(f.getPath()));
-                if(Integer.parseInt(new String(encoded, StandardCharsets.UTF_8)) != instance.getVersion()){
+                if(Integer.parseInt(new FileOperation().readFile(f)) != instance.getVersion()){
                     sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
-                    FileWriter writer = new FileWriter(f);
-                    writer.write(String.valueOf(instance.getVersion()));
-                    writer.close();
+                    new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -69,9 +65,7 @@ public class Gitlab {
         }else{
             try{
                 if(f.createNewFile()){
-                    FileWriter writer = new FileWriter(f);
-                    writer.write(String.valueOf(instance.getVersion()));
-                    writer.close();
+                    new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
                     sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
                 }
             }catch (Exception e){

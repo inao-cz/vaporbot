@@ -7,7 +7,7 @@ import org.javacord.api.entity.permission.Role;
 
 import java.awt.*;
 
-public class Approve extends Command {
+public final class Approve extends Command {
     public Approve(NewMain instance){
         super(instance, "approve", "approve <userid>", new String[]{"appr", "allow"});
     }

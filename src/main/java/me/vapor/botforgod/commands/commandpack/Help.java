@@ -18,7 +18,7 @@ public final class Help extends Command {
         builder.setAuthor(message.getAuthor().getDisplayName(), null, message.getAuthor().getAvatar());
         builder.setColor(Color.orange);
         for(Command command : instance.getCommands()){
-            builder.addField("Command: " + command.getCommand(), "Usage: " + instance.getConfig().getApi("prefix") + command.getUsage() + "\n" + "Aliases: " + Arrays.toString(command.getAliases()).replaceAll("null", "None").replaceAll("\\[", "").replaceAll("\\]", ""));
+            builder.addField("Command: " + command.getCommand(), "Usage: " + instance.getConfig().getOption("prefix") + command.getUsage() + "\n" + "Aliases: " + Arrays.toString(command.getAliases()).replaceAll("null", "None").replaceAll("\\[", "").replaceAll("\\]", ""));
         }
         new MessageBuilder().setEmbed(builder).send(message.getChannel());
 
