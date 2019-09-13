@@ -1,11 +1,13 @@
 {
-    "30": [
-        "+ Added command 'ticket'",
-        "+ Created options in config",
-        "+ Moved prefix into options",
-        "+ Renamed old options to settings",
-        "+ Added pom.xml on git",
-        "+ Added FileOperation utility",
-        "+ Added 'ticket' setting in config"
+    "31": [
+        "+ Added command 'Prasoprd'",
+        "+ Added command 'Thanos'",
+        "+ Added Discord channel logging",
+        "+ Config setting 'ConsoleLog'",
+        "+ Config setting 'MessageLog'",
+        "+ Config setting 'Prasoprd'",
+        "+ Config setting 'Thanos'",
+        "+ Config option 'thanosGroupBlacklist'",
+        "+ Modified base of bot (Needed setting is now in Superclass constructor)"
     ]
 }

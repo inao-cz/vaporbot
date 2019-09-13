@@ -34,18 +34,22 @@
     "Approve": true,
     "Bans": true,
     "Count": true,
+    "ConsoleLog": true,
     "Delete": true,
     "Gitlab": true,
     "Help": true,
     "Mute": true,
+    "MessageLog": true,
     "Nicksgen": true,
+    "Prasoprd": true,
     "Skid": true,
     "Ticket": true,
-    "Unmute": true,
+    "Thanos": false,
     "Youtube": true
   },
   "options":{
-    "prefix": "!"
+    "prefix": "!",
+    "thanosGroupBlacklist": "Admin;Friends;Nitro Booster;YouTube;Donator"
   },
   "apis": {
     "discordProductionApi": "",
