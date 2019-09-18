@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FileOperation {
 
@@ -44,6 +47,17 @@ public class FileOperation {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+    public boolean removeFromFile(File f, String line){
+        try{
+            List<String> out = Files.lines(f.toPath()).filter(text -> !text.contains(line))
+                    .collect(Collectors.toList());
+            Files.write(f.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 }

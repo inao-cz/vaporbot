@@ -8,21 +8,22 @@ import me.inao.botforgod.listeners.BanListener;
 import me.inao.botforgod.listeners.MessageListener;
 import me.inao.botforgod.config.Config;
 import me.inao.botforgod.listeners.JoinListener;
-import me.inao.botforgod.classes.Captcha;
 import me.inao.botforgod.classes.Countgame;
+import me.inao.botforgod.utils.FileOperation;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.UserStatus;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
 public final class NewMain {
     private ArrayList<Command> commands = new ArrayList<>();
     private ArrayList<String> muted = new ArrayList<>();
-    private ArrayList<Captcha> captchas = new ArrayList<>();
+    private ArrayList<String> captchas = new ArrayList<>();
     private Server id;
     private DiscordApi api;
     private Config config;
@@ -58,6 +59,20 @@ public final class NewMain {
         /*!--------------------------------------------------! Listener start*/
         api.getServers().forEach(server -> id=server);
         if(this.getConfig().getSetting("Gitlab") && this.getConfig().getSetting("production")) new Gitlab(this).check();
+        if(this.getConfig().getSetting("Captcha")){
+            File f = new FileOperation().getFile("captcha.txt");
+            if(f.length() > 0){
+                try{
+                    BufferedReader reader1 = new BufferedReader(new FileReader(f));
+                    String line;
+                    while((line = reader1.readLine()) != null){
+                        captchas.add(line);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else System.out.println("No valid captchas found in file.");
+        }
         api.addMessageCreateListener(new MessageListener(this));
         if(config.getSetting("production")){
             api.addServerMemberJoinListener(new JoinListener(this));
@@ -103,7 +118,7 @@ public final class NewMain {
     public Countgame getCountgame() {
         return countgame;
     }
-    public ArrayList<Captcha> getCaptchas() {
+    public ArrayList<String> getCaptchas() {
         return captchas;
     }
     /*!--------------------------------------------------!*/

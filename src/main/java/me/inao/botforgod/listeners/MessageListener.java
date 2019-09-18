@@ -4,6 +4,7 @@ import me.inao.botforgod.classes.Log;
 import me.inao.botforgod.commands.Command;
 import me.inao.botforgod.NewMain;
 import me.inao.botforgod.classes.Captcha;
+import me.inao.botforgod.utils.FileOperation;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
@@ -11,6 +12,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 import java.awt.*;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,18 +31,18 @@ public final class MessageListener implements MessageCreateListener {
                 return;
             }
         }
-        Captcha captcha = null;
+        String captcha = null;
         for(Role r : event.getMessageAuthor().asUser().get().getRoles(instance.getApi().getServerById(instance.getId()).get())){
             if(r.getName().equals("captcha")){
-                for(Captcha c : instance.getCaptchas()){
-                    if(c.getUser().getIdAsString().equals(event.getMessageAuthor().getIdAsString())){
-                        if(event.getMessage().getContent().equals(String.valueOf(c.getResult()))){
-                            c.getUser().removeRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("captcha").get(0));
-                            c.getUser().addRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("not-approved").get(0));
+                for(String c : instance.getCaptchas()){
+                    if(c.split(":")[2].equals(event.getMessageAuthor().getIdAsString())){
+                        if(event.getMessage().getContent().equals(c.split(":")[1])){
+                            instance.getApi().getUserById(c.split(":")[2]).join().removeRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("captcha").get(0));
+                            instance.getApi().getUserById(c.split(":")[2]).join().addRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("not-approved").get(0));
                             captcha = c;
                             break;
                         }
-                        if(!(event.getMessage().getContent().equals(String.valueOf(c.getResult()))) || !event.getMessage().isPrivateMessage()) {
+                        if(!(event.getMessage().getContent().equals(String.valueOf(c.split(":")[1]))) || !event.getMessage().isPrivateMessage()) {
                             event.getMessage().delete();
                             break;
                         }
@@ -48,7 +50,10 @@ public final class MessageListener implements MessageCreateListener {
                 }
                 if(captcha != null){
                     instance.getCaptchas().remove(captcha);
+                    File file = new FileOperation().getFile("captcha.txt");
+                    new FileOperation().removeFromFile(file, captcha);
                     event.getMessage().getChannel().asServerTextChannel().get().delete("Solved captcha");
+                    break;
                 }
             }
         }

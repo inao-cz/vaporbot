@@ -1,6 +1,7 @@
 package me.inao.botforgod.classes;
 
 import me.inao.botforgod.NewMain;
+import me.inao.botforgod.utils.FileOperation;
 import me.inao.botforgod.utils.Message;
 import me.inao.botforgod.utils.Renderer;
 import org.javacord.api.entity.channel.ServerTextChannel;
@@ -19,7 +20,6 @@ public class Captcha {
     private String imgName;
     private NewMain instance;
     public Captcha(NewMain instance, User user){
-        instance.getCaptchas().add(this);
         this.instance = instance;
         this.user = user;
         genCaptcha();
@@ -66,6 +66,9 @@ public class Captcha {
                 .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
                 .create()
                 .join();
+        instance.getCaptchas().add(imgName + ":" + result + ":" + user.getIdAsString());
+        File file = new FileOperation().getFile("captcha.txt");
+        new FileOperation().writeFile(file, imgName + ":" + result+ ":" + user.getIdAsString() + "\n");
         new Message("Captcha", instance.getConfig().getMessage("messageCaptchaWelcome", null, null), Color.BLACK, new File(imgName + ".png"), channel);
     }
 }

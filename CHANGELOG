@@ -1,13 +1,8 @@
 {
-    "31": [
-        "+ Added command 'Prasoprd'",
-        "+ Added command 'Thanos'",
-        "+ Added Discord channel logging",
-        "+ Config setting 'ConsoleLog'",
-        "+ Config setting 'MessageLog'",
-        "+ Config setting 'Prasoprd'",
-        "+ Config setting 'Thanos'",
-        "+ Config option 'thanosGroupBlacklist'",
-        "+ Modified base of bot (Needed setting is now in Superclass constructor)"
+    "32": [
+        "+ Config setting 'Captcha'",
+        "+ Bug fixes",
+        "+ External captcha mapping",
+        "+ Captcha loading on start"
     ]
 }

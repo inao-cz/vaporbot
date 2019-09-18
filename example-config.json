@@ -20,7 +20,7 @@
     "messageYoutubeNotValidId": "It looks like not valid YouTube Channel ID has been provided. Please use ID that looks like this 'UC_x5XG1OV2P6uZZ5FSM9Ttw'",
     "messageYoutubeAlreadyLinking": "You are already in linking process. Please link your channel",
     "messageYoutubePM": "Use this code in 'About' tab on your YouTube channel. After that, send command '!youtube verify' to #bot-commands :smiley:",
-    "messageYoutubeSuccess": "YouTube channel \"%ytchannel\" was verified by user \"%user%\". Subscribers when verified: %subs%",
+    "messageYoutubeSuccess": "YouTube channel \"%ytchannel%\" was verified by user \"%user%\". Subscribers when verified: %subs%",
     "messageYoutubeInvalid": "Cannot validate YouTube Account. This can mean API is down, YouTube account with this ID wasn't found or subscribers are under 100. Removing started link process",
     "messageYoutubeProcessNotStarted": "Started validation process not found. :frowning:",
     "messageCountgameComplete": "Congrats, \"%user%\" has completed CountGame :smiley:",
@@ -33,6 +33,7 @@
     "Antipihoda": true,
     "Approve": true,
     "Bans": true,
+    "Captcha": true,
     "Count": true,
     "ConsoleLog": true,
     "Delete": true,
@@ -44,7 +45,7 @@
     "Prasoprd": true,
     "Skid": true,
     "Ticket": true,
-    "Thanos": false,
+    "Thanos": true,
     "Youtube": true
   },
   "options":{

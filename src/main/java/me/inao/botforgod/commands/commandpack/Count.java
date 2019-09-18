@@ -25,6 +25,10 @@ public final class Count extends Command {
             new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericArgsErr", null, this), Color.RED, message.getChannel());
             return;
         }
+        if(!message.getChannel().asServerTextChannel().get().getName().equals("count-game")){
+            new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", "CountGame allowed only in #count-game.", Color.RED, message.getChannel());
+            return;
+        }
         try{
             Long.parseLong(args[0]);
             if(args.length == 2){

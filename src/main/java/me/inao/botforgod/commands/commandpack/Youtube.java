@@ -74,7 +74,7 @@ public class Youtube extends Command {
                                 instance.getConfig().getMessage("messageYoutubeSuccess", new String[][]{
                                         {"%ytchannel%", record.getUsername()},
                                         {"%user%", message.getAuthor().getDisplayName()},
-                                        {"%subs", record.getSubs()}
+                                        {"%subs%", record.getSubs()}
                                 }, this)
                                 , Color.yellow, instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("yt-verify").get(0).asTextChannel().get());
                         message.getAuthor().asUser().get().addRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("YouTube").get(0));
