@@ -28,7 +28,7 @@ public final class NewMain {
     private DiscordApi api;
     private Config config;
     private Countgame countgame = null;
-    private int version = 31;
+    private int version = 32;
     public void init(){
         /*!--------------------------------------------------! Bot init*/
         Gson gson = new Gson();
