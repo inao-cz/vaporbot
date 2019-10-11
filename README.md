@@ -27,6 +27,13 @@ How to setup this bot
 3. Keep config.yml and .jar in the same directory!
 4. Now, you can launch with command `java -jar <bot>.jar`
 
+<style>
+.alert-danger {
+  color: rgb(169,68,66) !important;
+}
+</style>
+
+
 <div class="panel panel-danger">
 **Danger**
 {: .panel-heading}
