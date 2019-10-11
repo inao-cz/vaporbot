@@ -16,7 +16,9 @@ Can you use this bot? Absolutely! That's why it's config.yml there! Just please,
 <h3>
 How to setup this bot
 </h3>
-1. Setup example-config.yml. If you aren't going to use some commands, you can easily turn them off (and also keep API keys empty, if they are needed by command you are planning to turn off. More in this documentation). *KEEP DATATYPES AS SEEN IN EXAMPLE-CONFIG!*
-2. After setting up, rename example-config.yml to config.yml.
-3. Keep config.yml and .jar in the same directory!
-4. Now, you can launch with command `java -jar <bot>.jar`
+<ol>
+<li>Setup example-config.yml. If you aren't going to use some commands, you can easily turn them off (and also keep API keys empty, if they are needed by command you are planning to turn off. More in this documentation). *KEEP DATATYPES AS SEEN IN EXAMPLE-CONFIG!*</li>
+<li>After setting up, rename example-config.yml to config.yml.</li>
+<li>Keep config.yml and .jar in the same directory!</li>
+<li>Now, you can launch with command `java -jar <bot>.jar`</li>
+</ol>
