@@ -122,7 +122,7 @@ Section: Messages (Datatype: String [= text])
 | GenericFail              | `%command%`                           | More than one  | Generic message for command fail                                                        |
 | GenericSuccess           | `%command%`                           | More than one  | Generic message for Successfully executed command                                       |
 | GenericNoPerms           | `%command%`                           | More than one  | Generic message for user who tired to use admin command                                 |
-| GenericArgsErr           | %command%`                            | More than one  | Generic message for wrong arguments provided                                            |
+| GenericArgsErr           | `%command%`                           | More than one  | Generic message for wrong arguments provided                                            |
 | AntipihodaInGroup        | `None`                                | Antipihoda     | If user tried to switch group but he is already in                                      |
 | AntipihodaJoined         | `None`                                | Antipihoda     | When user successfully changes group, message is sent                                   |
 | ApproveAlready           | `None`                                | Approve        | Message sent when already approved user is tried to approve again                       |
@@ -131,6 +131,7 @@ Section: Messages (Datatype: String [= text])
 | CountgameCreate          | `%number%`                            | Count          | Message sent when new Count-Game has been created                                       |
 | CountgameClosed          | `%user%`                              | Count          | If Count-Game is closed by an admin, send this message                                  |
 | CaptchaWelcome           | `None`                                | Captcha        | Captcha message, sent to new users.                                                     |
+| KeyGenerated             | `%key%`                               | GenKey         | Send message when new Remote Server Access Key has been generated                       |
 | MuteSuccess              | `%user%`<br>`%id%`                    | Mute           | Announced message when user has been muted.                                             |
 | NicksgenErrNums          | `%command%`                           | Nicksgen       | Nicksgen numbers error (Only when bad datatypes or negative numers are provided)        |
 | NicksgenLimit            | `None`                                | Nicksgen       | Nicksgen error if user is trying to generate more than 50 nicknames                     |
@@ -188,9 +189,24 @@ Section: Options (Datatype: String [= text])
 Section: APIs (Datatype: String [= text])
 </h5>
 
-| API | Connected with | Meaning |
-|-----|----------------|---------|
-|discordProductionApi | Discord API | Main bot API (secret) key. **BOT WON'T WORK WITHOUT THIS!** |
-|discordTestingApi | Discord API | Testing bot API (secret) key. **DO NOT USE UNLESS YOU ARE PLANNING TO SWITCH `production` TO FALSE** |
-|YouTubeDataApi | Youtube Command | YouTube Data v3 API Key. |
-|SkidServerUrl | Skid Command | Skid Server URL. **THIS ISN'T NEEDED FOR YOU SINCE COMMAND `Skid` IS PROPRIETARY**
+| API                  | Connected with  | Meaning                                                                                              |
+|:---------------------|:----------------|:-----------------------------------------------------------------------------------------------------|
+| discordProductionApi | Discord API     | Main bot API (secret) key. **BOT WON'T WORK WITHOUT THIS!**                                          |
+| discordTestingApi    | Discord API     | Testing bot API (secret) key. **DO NOT USE UNLESS YOU ARE PLANNING TO SWITCH `production` TO FALSE** |
+| YouTubeDataApi       | Youtube Command | YouTube Data v3 API Key.                                                                             |
+| SkidServerUrl        | Skid Command    | Skid Server URL. **THIS ISN'T NEEDED FOR YOU SINCE COMMAND `Skid` IS PROPRIETARY**                   |
+
+<h3>
+Class Diagram (with Dependencies)
+</h3>
+
+![diagram](https://i.imgur.com/mv6QN4z.png)
+
+<h3>
+Generated files
+</h3>
+
+<p align="center"><strong>DO NOT TOUCH THESE FILES SINCE IT CAN BREAK THE BOT</strong></p>
+
+1. **Version.txt** - File generated for AutoUpdate Reminder.
+2. **Captcha.sql** - SQLite File, created for captcha mapping.
