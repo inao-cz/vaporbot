@@ -1,8 +1,13 @@
 {
-    "32": [
-        "+ Config setting 'Captcha'",
-        "+ Bug fixes",
-        "+ External captcha mapping",
-        "+ Captcha loading on start"
+    "33": [
+        "+ Documentation",
+        "+ SQLite support",
+        "+ External addons support",
+        "+ AES Encryption of communication",
+        "+ Fixed Captcha mapping",
+        "+ Config setting 'externalServer'",
+        "+ Config option 'externalPort'",
+        "+ Config option 'aesKey'",
+        "+ Config option 'aesIv'"
     ]
 }

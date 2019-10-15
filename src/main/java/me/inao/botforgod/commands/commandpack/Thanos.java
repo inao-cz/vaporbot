@@ -26,9 +26,9 @@ public final class Thanos extends Command {
             return;
         }
         List<User> users = new ArrayList<>();
-        for(User user : instance.getApi().getServerById(instance.getId()).get().getMembers()){
+        for(User user : instance.getServer().getMembers()){
             boolean contains = false;
-            for (Role role : user.getRoles(instance.getApi().getServerById(instance.getId()).get())) {
+            for (Role role : user.getRoles(instance.getServer())) {
                 if(instance.getConfig().getOption("thanosGroupBlacklist").contains(role.getName())){
                     contains = true;
                     break;

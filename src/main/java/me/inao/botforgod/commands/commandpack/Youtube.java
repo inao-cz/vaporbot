@@ -28,7 +28,7 @@ public class Youtube extends Command {
             new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericArgsErr", null, this), Color.RED,  message.getChannel());
             return;
         }
-        List<Role> user = message.getUserAuthor().get().getRoles(this.instance.getApi().getServerById(instance.getId()).get());
+        List<Role> user = message.getUserAuthor().get().getRoles(this.instance.getServer());
         for (Role role : user){
             if(role.getName().equalsIgnoreCase("YouTube")){
                 new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageYoutubeAlreadyLinked", null, this), Color.RED, message.getChannel());
@@ -76,8 +76,8 @@ public class Youtube extends Command {
                                         {"%user%", message.getAuthor().getDisplayName()},
                                         {"%subs%", record.getSubs()}
                                 }, this)
-                                , Color.yellow, instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("yt-verify").get(0).asTextChannel().get());
-                        message.getAuthor().asUser().get().addRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("YouTube").get(0));
+                                , Color.yellow, instance.getServer().getTextChannelsByName("yt-verify").get(0).asTextChannel().get());
+                        message.getAuthor().asUser().get().addRole(instance.getServer().getRolesByName("YouTube").get(0));
                         state = record;
                         return;
                     }else {

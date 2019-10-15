@@ -7,6 +7,8 @@ import me.inao.botforgod.utils.JsonParser;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.permission.PermissionType;
+import org.javacord.api.entity.permission.PermissionsBuilder;
 import org.javacord.api.util.logging.ExceptionLogger;
 import java.awt.*;
 import java.io.File;
@@ -47,17 +49,18 @@ public class Gitlab {
             System.out.println("Please, update.");
             System.out.println("Shutting down, now.");
             System.out.println("-----------------------------------");
-            instance.getApi().getServerById(instance.getId()).get()
-                    .createTextChannelBuilder().setName("updator").create().join()
-                    .sendMessage("vaporbot has been updated. Shutting down now!");
-            System.exit(0);
+            instance.getServer()
+                    .createTextChannelBuilder().setName("updator")
+                    .addPermissionOverwrite(instance.getServer().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.SEND_MESSAGES, PermissionType.ADD_REACTIONS).build())
+                    .create().join()
+                    .sendMessage("vaporbot release has been updated. Please download new version..");
         }
 
         File f = new FileOperation().getFile("version.txt");
         if(f.length() != 0){
             try{
                 if(Integer.parseInt(new FileOperation().readFile(f)) != instance.getVersion()){
-                    sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
+                    sendUpdate(instance.getServer().getTextChannelsByName("update").get(0));
                     new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
                 }
             }catch (Exception e){
@@ -66,7 +69,7 @@ public class Gitlab {
         }else{
             try{
                 new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
-                sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
+                sendUpdate(instance.getServer().getTextChannelsByName("update").get(0));
             }catch (Exception e){
                 new ExceptionCatcher(e);
             }

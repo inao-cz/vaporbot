@@ -13,13 +13,13 @@ public final class Antipihoda extends Command {
 
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
-        for(Role role : message.getAuthor().asUser().get().getRoles(instance.getApi().getServerById(instance.getId()).get())){
+        for(Role role : message.getAuthor().asUser().get().getRoles(instance.getServer())){
             if(role.getName().equals("anti-pihoda")){
                 new me.inao.botforgod.utils.Message(message.getAuthor(), "Error", instance.getConfig().getMessage("messageAntipihodaInGroup", null, this), Color.orange, message.getChannel());
                 return;
             }
         }
-        message.getAuthor().asUser().get().addRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("anti-pihoda").get(0));
+        message.getAuthor().asUser().get().addRole(instance.getServer().getRolesByName("anti-pihoda").get(0));
         new me.inao.botforgod.utils.Message(message.getAuthor(), "You just joined", instance.getConfig().getMessage("messageAntipihodaJoined", null, this), Color.orange, message.getChannel());
     }
 }

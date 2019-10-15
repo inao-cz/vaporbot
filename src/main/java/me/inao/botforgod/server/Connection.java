@@ -48,6 +48,6 @@ public class Connection extends Thread{
 
     public void send(String message){
         String encryted = new AesUtility(instance).getEncrypted(message);
-        writer.println(message);
+        writer.println(encryted);
     }
 }

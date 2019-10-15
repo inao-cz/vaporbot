@@ -32,13 +32,13 @@ public final class MessageListener implements MessageCreateListener {
             }
         }
         String captcha = null;
-        for(Role r : event.getMessageAuthor().asUser().get().getRoles(instance.getApi().getServerById(instance.getId()).get())){
+        for(Role r : event.getMessageAuthor().asUser().get().getRoles(instance.getServer())){
             if(r.getName().equals("captcha")){
                 for(String c : instance.getCaptchas()){
                     if(c.split(":")[2].equals(event.getMessageAuthor().getIdAsString())){
                         if(event.getMessage().getContent().equals(c.split(":")[1])){
-                            instance.getApi().getUserById(c.split(":")[2]).join().removeRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("captcha").get(0));
-                            instance.getApi().getUserById(c.split(":")[2]).join().addRole(instance.getApi().getServerById(instance.getId()).get().getRolesByName("not-approved").get(0));
+                            instance.getApi().getUserById(c.split(":")[2]).join().removeRole(instance.getServer().getRolesByName("captcha").get(0));
+                            instance.getApi().getUserById(c.split(":")[2]).join().addRole(instance.getServer().getRolesByName("not-approved").get(0));
                             captcha = c;
                             break;
                         }
@@ -81,7 +81,7 @@ public final class MessageListener implements MessageCreateListener {
                             if(serverTextChannel.getName().equals("bot-commands") || event.getMessageContent().contains("!del") || event.getMessageAuthor().canManageRolesOnServer()){
                                 command.onCommand(msg, instance, args);
                                 if(instance.getConfig().getSetting("MessageLog")) new Log("Command: " + event.getMessage().getContent() + "$$By: " + event.getMessage().getAuthor().getDiscriminatedName() + "$$In: " + event.getChannel(), instance);
-                                if(instance.getConfig().getSetting("ConsoleLog")) System.out.println("[" + new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss").format(Calendar.getInstance().getTime()) + "] Command " + event.getMessage().getContent() + " was executed by " + event.getMessage().getAuthor().getDiscriminatedName() + " in " + event.getChannel());
+                                if(instance.getConfig().getSetting("ConsoleLog")) new Log("Command " + event.getMessage().getContent() + " was executed by " + event.getMessage().getAuthor().getDiscriminatedName() + " in " + event.getChannel());
                             }else{
                                 event.getMessage().getAuthor().asUser().ifPresent(user -> {
                                     new MessageBuilder().setEmbed(new EmbedBuilder().setColor(Color.RED).setTitle("Error!").setDescription("Please use bot-commands room for commands. Thank you :)")).send(user);

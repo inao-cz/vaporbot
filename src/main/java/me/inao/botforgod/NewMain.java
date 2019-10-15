@@ -3,6 +3,7 @@ package me.inao.botforgod;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
+import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.classes.Gitlab;
 import me.inao.botforgod.commands.Command;
 import me.inao.botforgod.commands.commandpack.*;
@@ -21,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 @Getter
@@ -28,12 +30,13 @@ public final class NewMain {
     private ArrayList<Command> commands = new ArrayList<>();
     private ArrayList<String> muted = new ArrayList<>();
     private ArrayList<String> captchas = new ArrayList<>();
-    private Server id;
+    private Server server;
     private DiscordApi api;
     private Config config;
+    private SQLite sqLite = new SQLite();
     @Setter
     private Countgame countgame = null;
-    private int version = 32;
+    private int version = 33;
     public void init(){
         /*!--------------------------------------------------! Bot init*/
         loadConfig();
@@ -64,7 +67,7 @@ public final class NewMain {
         /*!--------------------------------------------------!*/
 
         /*!--------------------------------------------------! Listener start*/
-        api.getServers().forEach(server -> id=server);
+        api.getServers().forEach(server -> this.server = server);
         if(this.getConfig().getSetting("Gitlab") && this.getConfig().getSetting("production")) new Gitlab(this).check();
         else if(!this.getConfig().getSetting("Gitlab")) System.out.println("Disabling AutoUpdate Check isn't secure!");
         if(this.getConfig().getSetting("Captcha")){
@@ -128,10 +131,27 @@ public final class NewMain {
     /*!--------------------------------------------------!*/
     /*!--------------------------------------------------! Captcha Loader*/
     public void loadCaptcha(){
-        SQLite sqLite = new SQLite();
         sqLite.openConnection();
-        PreparedStatement stmt = sqLite.getConnection().prepareStatement();
-        sqLite.getResults(sqLite.getConnection(), stmt)
+        try{
+            PreparedStatement stmt = sqLite.getConnection().prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS captchas(" +
+                            "id TEXT NOT NULL" +
+                            "sol INT NOT NULL" +
+                            "uid TEXT NOT NULL" +
+                            ");"
+                    );
+            if(!sqLite.execute(stmt)){
+                System.out.println("Error when tried to work with SQLite! Shutting down!");
+                System.exit(0);
+            }
+            stmt = sqLite.getConnection().prepareStatement("SELECT * FROM TABLE captchas;");
+            ResultSet set = sqLite.getResults(stmt);
+            while(set.next()){
+                captchas.add(set.getString("id") + ":" + set.getInt("sol") + ":" + set.getString("uid"));
+            }
+        }catch (Exception e){
+            new ExceptionCatcher(e);
+        }
     }
     /*!--------------------------------------------------!*/
 }

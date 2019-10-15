@@ -8,6 +8,9 @@ import java.util.Calendar;
 
 public class Log {
     public Log(String message, NewMain instance){
-        new Message("Log " + new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss").format(Calendar.getInstance().getTime()), message.replace("$$", "\n"), Color.BLACK, instance.getApi().getServerById(instance.getId()).get().getChannelsByName("admin-log").get(0).asServerTextChannel().get());
+        new Message("Log " + new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss").format(Calendar.getInstance().getTime()), message.replace("$$", "\n"), Color.BLACK, instance.getServer().getChannelsByName("admin-log").get(0).asServerTextChannel().get());
+    }
+    public Log(String message){
+        System.out.println("[" + new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss").format(Calendar.getInstance().getTime()) + "] " + message);
     }
 }

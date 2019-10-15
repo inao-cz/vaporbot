@@ -38,7 +38,7 @@ public class Countgame {
             channel.asServerTextChannel().get().updateTopic("");
             return;
         }
-        channel.asServerTextChannel().get().updateTopic("Next number is: " + String.valueOf(num + 1));
+        channel.asServerTextChannel().get().updateTopic("Next number is: " + (num + 1));
         num++;
     }
 }

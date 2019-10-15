@@ -17,22 +17,18 @@ public final class JoinListener implements ServerMemberJoinListener {
     @Override
     public void onServerMemberJoin(ServerMemberJoinEvent serverMemberJoinEvent) {
         User user = serverMemberJoinEvent.getUser();
-        instance.getApi().getServerById(instance.getId()).ifPresent(server ->
-            {
-                if(server.getTextChannelsByName("welcome").size() >= 1){
-                    server.getTextChannelsByName("welcome").get(0).asTextChannel().ifPresent(textChannel ->
-                        new MessageBuilder().setEmbed(new EmbedBuilder()
+        if(instance.getServer().getTextChannelsByName("welcome").size() >= 1){
+            instance.getServer().getTextChannelsByName("welcome").get(0).asTextChannel().ifPresent(textChannel ->
+                    new MessageBuilder().setEmbed(new EmbedBuilder()
                             .setAuthor("Server")
                             .addField("Join", "User " + user.getDiscriminatedName() + " has joined. Welcome!")
-                            .setColor(Color.yellow)
-                            ).send(textChannel)
-                    );
-                }
-                if(instance.getConfig().getSetting("Approve")){
-                    server.getRolesByName("captcha").get(0).addUser(user);
-                    new Captcha(instance, serverMemberJoinEvent.getUser());
-                }
-            }
-        );
+                            .setColor(Color.yellow))
+                            .send(textChannel)
+            );
+        }
+        if(instance.getConfig().getSetting("Approve")){
+            instance.getServer().getRolesByName("captcha").get(0).addUser(user);
+            new Captcha(instance, serverMemberJoinEvent.getUser());
+        }
     }
 }

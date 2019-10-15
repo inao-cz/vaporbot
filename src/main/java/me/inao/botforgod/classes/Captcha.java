@@ -1,9 +1,9 @@
 package me.inao.botforgod.classes;
 
 import me.inao.botforgod.NewMain;
-import me.inao.botforgod.utils.FileOperation;
 import me.inao.botforgod.utils.Message;
 import me.inao.botforgod.utils.Renderer;
+import me.inao.botforgod.utils.SQLite;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.ServerTextChannelBuilder;
 import org.javacord.api.entity.permission.PermissionType;
@@ -11,6 +11,7 @@ import org.javacord.api.entity.permission.PermissionsBuilder;
 import org.javacord.api.entity.user.User;
 import java.awt.*;
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Captcha {
@@ -59,16 +60,31 @@ public class Captcha {
         }
     }
     private void setChannel(){
-        channel = new ServerTextChannelBuilder(instance.getApi().getServerById(instance.getId()).get()).setName("captcha-"+imgName)
-                .setCategory(instance.getApi().getServerById(instance.getId()).get().getChannelCategoriesByName("captcha").get(0))
+        channel = new ServerTextChannelBuilder(instance.getServer()).setName("captcha-"+imgName)
+                .setCategory(instance.getServer().getChannelCategoriesByName("captcha").get(0))
                 .addPermissionOverwrite(user ,new PermissionsBuilder().setAllowed(PermissionType.READ_MESSAGES).build())
-                .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("captcha").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
-                .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
+                .addPermissionOverwrite(instance.getServer().getRolesByName("captcha").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
+                .addPermissionOverwrite(instance.getServer().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
                 .create()
                 .join();
         instance.getCaptchas().add(imgName + ":" + result + ":" + user.getIdAsString());
 //        File file = new FileOperation().getFile("captcha.txt");
 //        new FileOperation().writeFile(file, imgName + ":" + result+ ":" + user.getIdAsString() + "\n");
+
+        try{
+            if(instance.getSqLite().getConnection() == null){
+                instance.getSqLite().openConnection();
+            }
+            PreparedStatement stmt = instance.getSqLite().getConnection().prepareStatement("INSERT INTO captchas VALUES (?, ?, ?)");
+            stmt.setString(1, imgName);
+            stmt.setInt(2, result);
+            stmt.setString(3, user.getIdAsString());
+            if(!instance.getSqLite().execute(stmt)){
+                System.out.println("Failed to insert captcha data.");
+            }
+        }catch (Exception e){
+            new ExceptionCatcher(e);
+        }
 
         new Message("Captcha", instance.getConfig().getMessage("messageCaptchaWelcome", null, null), Color.BLACK, new File(imgName + ".png"), channel);
     }

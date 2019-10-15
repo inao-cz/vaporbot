@@ -35,11 +35,11 @@ public final class Ticket extends Command {
             for(int i = 1; i < args.length; i++){
                 builder.append(args[i]).append(" ");
             }
-            new ServerTextChannelBuilder(instance.getApi().getServerById(instance.getId()).get())
-                    .setCategory(instance.getApi().getServerById(instance.getId()).get().getChannelCategoriesByName("tickets").get(0))
+            new ServerTextChannelBuilder(instance.getServer())
+                    .setCategory(instance.getServer().getChannelCategoriesByName("tickets").get(0))
                     .setTopic("Solving: " + builder.toString() + " | ID: " + id)
                     .setName("Ticket-"+id)
-                    .addPermissionOverwrite(instance.getApi().getServerById(instance.getId()).get().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
+                    .addPermissionOverwrite(instance.getServer().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
                     .addPermissionOverwrite(message.getUserAuthor().get(), new PermissionsBuilder().setAllowed(PermissionType.READ_MESSAGES).build())
                     .create();
             log(instance, id.toString(), (byte)0);
@@ -53,7 +53,7 @@ public final class Ticket extends Command {
                 new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericNoPerms", null, this), Color.RED, message.getChannel());
                 return;
             }
-            for(ServerChannel channel : instance.getApi().getServerById(instance.getId()).get().getChannelCategoriesByName("tickets").get(0).getChannels()){
+            for(ServerChannel channel : instance.getServer().getChannelCategoriesByName("tickets").get(0).getChannels()){
                 if(channel.getName().equalsIgnoreCase("Ticket-"+args[1])){
                     channel.delete();
                     log(instance, args[1], (byte)1);
@@ -73,6 +73,6 @@ public final class Ticket extends Command {
                 break;
         }
         new me.inao.botforgod.utils.Message("Ticket", message, Color.BLACK,
-                instance.getApi().getServerById(instance.getId()).get().getChannelsByName("ticket-log").get(0).asTextChannel().get());
+                instance.getServer().getChannelsByName("ticket-log").get(0).asTextChannel().get());
     }
 }

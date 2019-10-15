@@ -21,7 +21,7 @@ public class SQLite {
         }
         this.connection = null;
     }
-    private boolean execute(Connection connection, PreparedStatement stmt){
+    public boolean execute(PreparedStatement stmt){
         try{
             if(stmt.execute()){
                 return true;
@@ -32,7 +32,7 @@ public class SQLite {
         return false;
     }
 
-    public ResultSet getResults(Connection conn, PreparedStatement stmt){
+    public ResultSet getResults(PreparedStatement stmt){
        try{
            return stmt.executeQuery();
        }catch (Exception e){
