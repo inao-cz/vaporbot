@@ -1,8 +1,10 @@
 package me.inao.botforgod.commands;
 
+import lombok.Getter;
 import me.inao.botforgod.NewMain;
 import org.javacord.api.entity.message.Message;
 
+@Getter
 public abstract class Command {
     /*!--------------------------------------------------! Proměnné*/
     private String command, usage;
@@ -21,15 +23,6 @@ public abstract class Command {
         }
     }
 
-    /*!--------------------------------------------------!*/
-    /*!--------------------------------------------------! Gettery a Settery*/
-    public String getCommand() {
-        return command;
-    }
-    public String getUsage() {
-        return usage;
-    }
-    public String[] getAliases(){ return aliases; }
     /*!--------------------------------------------------!*/
     /*!--------------------------------------------------! abstract void, overriduje se v commandu*/
     public abstract void onCommand(Message message, NewMain instance, String[] args);

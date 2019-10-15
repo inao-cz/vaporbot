@@ -1,6 +1,7 @@
 package me.inao.botforgod.commands.commandpack;
 
 import me.inao.botforgod.NewMain;
+import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.commands.Command;
 import org.javacord.api.entity.message.Message;
 import java.awt.*;
@@ -60,7 +61,7 @@ public final class Skid extends Command {
             message1.append("\n------------\nIn total: **").append(map.size()).append("** players");
             new me.inao.botforgod.utils.Message(message.getAuthor(), "Executed command skid", message1.toString(), Color.LIGHT_GRAY, message.getChannel());
         } catch (IOException e2) {
-            e2.printStackTrace();
+            new ExceptionCatcher(e2);
         }
     }
     private ArrayList<String> getUserMap(Message message, NewMain instance) throws IOException {

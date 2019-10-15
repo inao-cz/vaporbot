@@ -67,8 +67,9 @@ public class Captcha {
                 .create()
                 .join();
         instance.getCaptchas().add(imgName + ":" + result + ":" + user.getIdAsString());
-        File file = new FileOperation().getFile("captcha.txt");
-        new FileOperation().writeFile(file, imgName + ":" + result+ ":" + user.getIdAsString() + "\n");
+//        File file = new FileOperation().getFile("captcha.txt");
+//        new FileOperation().writeFile(file, imgName + ":" + result+ ":" + user.getIdAsString() + "\n");
+
         new Message("Captcha", instance.getConfig().getMessage("messageCaptchaWelcome", null, null), Color.BLACK, new File(imgName + ".png"), channel);
     }
 }

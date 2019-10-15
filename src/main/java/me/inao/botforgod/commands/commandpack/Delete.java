@@ -1,6 +1,7 @@
 package me.inao.botforgod.commands.commandpack;
 
 import me.inao.botforgod.NewMain;
+import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.commands.Command;
 import org.javacord.api.entity.message.Message;
 import java.awt.*;
@@ -20,13 +21,13 @@ public final class Delete extends Command {
                 try {
                     message.getChannel().getMessages(-1).get().deleteAll();
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                    new ExceptionCatcher(e);
                 }
             }else{
                 try {
                     message.getChannel().getMessages(Integer.parseInt(args[0])+1).get().deleteAll();
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                    new ExceptionCatcher(e);
                 }
             }
         }

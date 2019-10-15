@@ -23,7 +23,7 @@ public final class Ticket extends Command {
         }
         if(args[0].equalsIgnoreCase("create")){
             if(args.length < 2){
-                new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericNoPerms", null, this), Color.RED, message.getChannel());
+                new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageGenericArgsErr", null, this), Color.RED, message.getChannel());
                 return;
             }
             StringBuilder id = new StringBuilder();

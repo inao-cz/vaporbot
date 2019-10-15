@@ -1,15 +1,17 @@
 package me.inao.botforgod;
 
 import com.google.gson.Gson;
+import lombok.Getter;
+import lombok.Setter;
 import me.inao.botforgod.classes.Gitlab;
 import me.inao.botforgod.commands.Command;
 import me.inao.botforgod.commands.commandpack.*;
-import me.inao.botforgod.listeners.BanListener;
-import me.inao.botforgod.listeners.MessageListener;
+import me.inao.botforgod.listeners.*;
 import me.inao.botforgod.config.Config;
-import me.inao.botforgod.listeners.JoinListener;
 import me.inao.botforgod.classes.Countgame;
+import me.inao.botforgod.server.AesUtility;
 import me.inao.botforgod.utils.FileOperation;
+import me.inao.botforgod.utils.SQLite;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -18,8 +20,10 @@ import org.javacord.api.entity.user.UserStatus;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
+@Getter
 public final class NewMain {
     private ArrayList<Command> commands = new ArrayList<>();
     private ArrayList<String> muted = new ArrayList<>();
@@ -27,30 +31,33 @@ public final class NewMain {
     private Server id;
     private DiscordApi api;
     private Config config;
+    @Setter
     private Countgame countgame = null;
     private int version = 32;
     public void init(){
         /*!--------------------------------------------------! Bot init*/
-        Gson gson = new Gson();
-        BufferedReader reader = null;
-        try{
-            reader = new BufferedReader(new FileReader("config.json"));
-            config = gson.fromJson(reader, Config.class);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if(reader != null){
-                try{
-                    reader.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
+        loadConfig();
         if(config.getSetting("production")){
             api = new DiscordApiBuilder().setToken(config.getApi("discordProductionApi")).login().join();
         }else{
             api = new DiscordApiBuilder().setToken(config.getApi("discordTestingApi")).login().join();
+        }
+        if(config.getSetting("externalServer")){
+            if(config.getOption("aesKey").equalsIgnoreCase("null")) {
+                System.out.println("I can see you have externalServer enabled without AES key. Generating..");
+                System.out.println(new AesUtility(this).getKey());
+                System.out.println("Please, use this key here and in your application. Exiting now since it's insecure to use server without encryption key.");
+                System.out.println("BEWARE! KEY IS BASE64 ENCODED!");
+                System.exit(0);
+            }
+            if(config.getOption("aesIv").equalsIgnoreCase("null")){
+                System.out.println("Nice, it looks like you already have AES key. However, I will still need Initialisation Vector (IV)");
+                System.out.println("Generating now..");
+                System.out.println(new AesUtility(this).getIv());
+                System.out.println("Please, use this IV in your client applications (BEWARE IV IS IN BASE64 ENCODING!)");
+                System.exit(0);
+            }
+            new me.inao.botforgod.server.Server(this).startServer();
         }
         api.updateStatus(UserStatus.IDLE);
         api.updateActivity(ActivityType.WATCHING, "on this server.");
@@ -59,6 +66,7 @@ public final class NewMain {
         /*!--------------------------------------------------! Listener start*/
         api.getServers().forEach(server -> id=server);
         if(this.getConfig().getSetting("Gitlab") && this.getConfig().getSetting("production")) new Gitlab(this).check();
+        else if(!this.getConfig().getSetting("Gitlab")) System.out.println("Disabling AutoUpdate Check isn't secure!");
         if(this.getConfig().getSetting("Captcha")){
             File f = new FileOperation().getFile("captcha.txt");
             if(f.length() > 0){
@@ -88,7 +96,6 @@ public final class NewMain {
         new Delete(this);
         new Mute(this);
         new Nicksgen(this);
-        new Prasoprd(this);
         new Skid(this);
         new Ticket(this);
         new Thanos(this);
@@ -96,36 +103,35 @@ public final class NewMain {
         new Youtube(this);
         new Ping(this);
         new Help(this); //help should be last command.
-        /*!--------------------------------------------------!*/
-    }
-    /*!--------------------------------------------------! Getters*/
-    public ArrayList<Command> getCommands() {
-        return commands;
-    }
-    public DiscordApi getApi() {
-        return api;
-    }
-    public String getId(){
-        return id.getIdAsString();
-    }
-    public Config getConfig() { return this.config; }
-    public int getVersion() {
-        return version;
-    }
-    public ArrayList<String> getMuted() {
-        return muted;
-    }
-    public Countgame getCountgame() {
-        return countgame;
-    }
-    public ArrayList<String> getCaptchas() {
-        return captchas;
     }
     /*!--------------------------------------------------!*/
 
-    /*!--------------------------------------------------! Setters*/
-    public void setCountgame(Countgame countgame) {
-        this.countgame = countgame;
+    /*!--------------------------------------------------! Config loading*/
+    public void loadConfig(){
+        Gson gson = new Gson();
+        BufferedReader reader = null;
+        try{
+            reader = new BufferedReader(new FileReader("config.json"));
+            config = gson.fromJson(reader, Config.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(reader != null){
+                try{
+                    reader.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    /*!--------------------------------------------------!*/
+    /*!--------------------------------------------------! Captcha Loader*/
+    public void loadCaptcha(){
+        SQLite sqLite = new SQLite();
+        sqLite.openConnection();
+        PreparedStatement stmt = sqLite.getConnection().prepareStatement();
+        sqLite.getResults(sqLite.getConnection(), stmt)
     }
     /*!--------------------------------------------------!*/
 }

@@ -81,7 +81,7 @@ public class Youtube extends Command {
                         state = record;
                         return;
                     }else {
-                        new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageYoutubeInvalid", null, this), Color.RED, message.getChannel());
+                        new me.inao.botforgod.utils.Message(message.getAuthor(), "Error!", instance.getConfig().getMessage("messageYoutubeNotValidId", null, this), Color.RED, message.getChannel());
                         state = record;
                     }
                 }

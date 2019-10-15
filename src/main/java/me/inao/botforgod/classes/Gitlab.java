@@ -61,14 +61,14 @@ public class Gitlab {
                     new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                new ExceptionCatcher(e);
             }
         }else{
             try{
                 new FileOperation().writeFile(f, String.valueOf(instance.getVersion()));
                 sendUpdate(instance.getApi().getServerById(instance.getId()).get().getTextChannelsByName("update").get(0));
             }catch (Exception e){
-                e.printStackTrace();
+                new ExceptionCatcher(e);
             }
         }
     }
