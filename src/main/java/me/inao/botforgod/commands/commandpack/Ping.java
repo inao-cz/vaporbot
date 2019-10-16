@@ -2,9 +2,7 @@ package me.inao.botforgod.commands.commandpack;
 
 import me.inao.botforgod.NewMain;
 import me.inao.botforgod.classes.Captcha;
-import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.commands.Command;
-import me.inao.botforgod.server.AesUtility;
 import org.javacord.api.entity.message.Message;
 
 import java.awt.*;
@@ -17,9 +15,7 @@ public final class Ping extends Command {
 
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
-//        new Captcha(instance, instance.getApi().getUserById(
-//                "588686886223216640"
-//        ).join());
+        new Captcha(instance, message.getUserAuthor().get());
         new me.inao.botforgod.utils.Message(message.getAuthor(), "Ping", Arrays.toString(instance.getCaptchas().toArray()), Color.RED, message.getChannel());
     }
 }

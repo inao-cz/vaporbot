@@ -5,12 +5,14 @@ import me.inao.botforgod.classes.ExceptionCatcher;
 
 import java.net.ServerSocket;
 
-public class Server {
+public class Server extends Thread{
     private NewMain instance;
     public Server(NewMain instance){
         this.instance = instance;
     }
-    public void startServer(){
+
+    @Override
+    public void run() {
         try{
             try(ServerSocket socket = new ServerSocket(Integer.parseInt(instance.getConfig().getOption("externalPort")))){
                 while(true){

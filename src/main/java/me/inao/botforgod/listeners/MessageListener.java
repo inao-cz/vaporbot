@@ -34,7 +34,6 @@ public final class MessageListener implements MessageCreateListener {
                 return;
             }
         }
-        String captcha = null;
         for(Role r : event.getMessageAuthor().asUser().get().getRoles(instance.getServer())){
             if(r.getName().equals("captcha")){
                 for(String c : instance.getCaptchas()){
@@ -42,32 +41,28 @@ public final class MessageListener implements MessageCreateListener {
                         if(event.getMessage().getContent().equals(c.split(":")[1])){
                             instance.getApi().getUserById(c.split(":")[2]).join().removeRole(instance.getServer().getRolesByName("captcha").get(0));
                             instance.getApi().getUserById(c.split(":")[2]).join().addRole(instance.getServer().getRolesByName("not-approved").get(0));
-                            captcha = c;
+                            instance.getCaptchas().remove(c);
+                            try{
+                                Connection connection = instance.getSqLite().openConnection();
+                                if(connection == null){
+                                    instance.getSqLite().openConnection();
+                                }
+                                PreparedStatement stmt = connection.prepareStatement(
+                                        "DELETE FROM captchas WHERE id = ?"
+                                );
+                                stmt.setString(1, c.split(":")[0]);
+                                instance.getSqLite().execute(connection, stmt);
+                            }catch (Exception e){
+                                new ExceptionCatcher(e);
+                            }
+                            event.getMessage().getChannel().asServerTextChannel().get().delete("Solved captcha");
                             break;
                         }
-                        if(!(event.getMessage().getContent().equals(String.valueOf(c.split(":")[1]))) || !event.getMessage().isPrivateMessage()) {
+                        else if(!(event.getMessage().getContent().equals(String.valueOf(c.split(":")[1]))) || !event.getMessage().isPrivateMessage()) {
                             event.getMessage().delete();
                             break;
                         }
                     }
-                }
-                if(captcha != null){
-                    instance.getCaptchas().remove(captcha);
-                    try{
-                        Connection connection = instance.getSqLite().openConnection();
-                        if(connection == null){
-                            instance.getSqLite().openConnection();
-                        }
-                        PreparedStatement stmt = connection.prepareStatement(
-                                "DELETE FROM captchas WHERE id = ?"
-                        );
-                        stmt.setString(1, captcha.split(":")[0]);
-                        instance.getSqLite().execute(connection, stmt);
-                    }catch (Exception e){
-                        new ExceptionCatcher(e);
-                    }
-                    event.getMessage().getChannel().asServerTextChannel().get().delete("Solved captcha");
-                    break;
                 }
             }
         }

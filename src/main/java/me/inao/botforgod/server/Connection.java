@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import me.inao.botforgod.NewMain;
 import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.classes.Log;
+import me.inao.botforgod.server.actions.Action;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -27,7 +28,7 @@ public class Connection extends Thread{
             Packet object = new Gson().fromJson(json, Packet.class);
             for(String key : instance.getConfig().getOption("allowedKeys").split(",")){
                 if(object.getToken().equals(key)){
-                    if(exec(object.getAction(), object.getOrigin(), object.getMessage())){
+                    if(exec(object.getAction())){
                         new Log("Executed " + object.getAction() + " sent from " + socket.getInetAddress());
                     }
                     break;
@@ -46,8 +47,12 @@ public class Connection extends Thread{
         }
     }
 
-    private boolean exec(String action, String origin, String message){
-
+    private boolean exec(String name){
+        for(Action exec : instance.getServerActions()){
+            if(exec.getName().equals(name)){
+                exec.onAction(exec.getMessage(), exec.getOrigin(), exec.getChannel());
+            }
+        }
         return true;
     }
 

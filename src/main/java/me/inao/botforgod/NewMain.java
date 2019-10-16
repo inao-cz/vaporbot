@@ -11,6 +11,7 @@ import me.inao.botforgod.listeners.*;
 import me.inao.botforgod.config.Config;
 import me.inao.botforgod.classes.Countgame;
 import me.inao.botforgod.server.AesUtility;
+import me.inao.botforgod.server.actions.Action;
 import me.inao.botforgod.utils.SQLite;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -24,13 +25,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Getter
 public final class NewMain {
     private ArrayList<Command> commands = new ArrayList<>();
+    private ArrayList<Action> serverActions = new ArrayList<>();
     private ArrayList<String> muted = new ArrayList<>();
-    private ArrayList<String> captchas = new ArrayList<>();
+    private ConcurrentLinkedQueue<String> captchas = new ConcurrentLinkedQueue<>();
     private Server server;
     private DiscordApi api;
     private Config config;
@@ -61,13 +63,15 @@ public final class NewMain {
                 System.out.println("Please, use this IV in your client applications (BEWARE IV IS IN BASE64 ENCODING!)");
                 System.exit(0);
             }
-            //new me.inao.botforgod.server.Server(this).startServer();
+            new me.inao.botforgod.server.Server(this).start();
+            System.out.println("Loaded server!");
         }
         api.updateStatus(UserStatus.IDLE);
         api.updateActivity(ActivityType.WATCHING, "on this server.");
         /*!--------------------------------------------------!*/
 
         /*!--------------------------------------------------! Listener start*/
+        System.out.println("Starting listeners!");
         api.getServers().forEach(server -> this.server = server);
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new Gitlab(this), 0L, 3600000L);

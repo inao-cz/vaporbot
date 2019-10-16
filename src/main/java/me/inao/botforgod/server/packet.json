@@ -1,6 +1,7 @@
 {
-  "token": "enter your token here",
-  "action": "MessageAction",
-  "origin": "Minecraft",
-  "message": "enter your message here"
+  "token": "",
+  "action": "",
+  "channel": "",
+  "origin": "",
+  "message": ""
 }
