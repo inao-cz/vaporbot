@@ -11,7 +11,6 @@ import me.inao.botforgod.listeners.*;
 import me.inao.botforgod.config.Config;
 import me.inao.botforgod.classes.Countgame;
 import me.inao.botforgod.server.AesUtility;
-import me.inao.botforgod.utils.FileOperation;
 import me.inao.botforgod.utils.SQLite;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -19,11 +18,13 @@ import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.UserStatus;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Getter
 public final class NewMain {
@@ -60,7 +61,7 @@ public final class NewMain {
                 System.out.println("Please, use this IV in your client applications (BEWARE IV IS IN BASE64 ENCODING!)");
                 System.exit(0);
             }
-            new me.inao.botforgod.server.Server(this).startServer();
+            //new me.inao.botforgod.server.Server(this).startServer();
         }
         api.updateStatus(UserStatus.IDLE);
         api.updateActivity(ActivityType.WATCHING, "on this server.");
@@ -68,21 +69,29 @@ public final class NewMain {
 
         /*!--------------------------------------------------! Listener start*/
         api.getServers().forEach(server -> this.server = server);
-        if(this.getConfig().getSetting("Gitlab") && this.getConfig().getSetting("production")) new Gitlab(this).check();
-        else if(!this.getConfig().getSetting("Gitlab")) System.out.println("Disabling AutoUpdate Check isn't secure!");
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new Gitlab(this), 0L, 3600000L);
         if(this.getConfig().getSetting("Captcha")){
-            File f = new FileOperation().getFile("captcha.txt");
-            if(f.length() > 0){
-                try{
-                    BufferedReader reader1 = new BufferedReader(new FileReader(f));
-                    String line;
-                    while((line = reader1.readLine()) != null){
-                        captchas.add(line);
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
+            Connection connection = getSqLite().openConnection();
+            try{
+                PreparedStatement stmt = connection.prepareStatement(
+                        "CREATE TABLE IF NOT EXISTS captchas(" +
+                                "id TEXT NOT NULL," +
+                                "sol INT NOT NULL," +
+                                "uid TEXT NOT NULL" +
+                                ")"
+                );
+                sqLite.execute(connection, stmt);
+
+                connection = sqLite.openConnection();
+                stmt = connection.prepareStatement("SELECT * FROM captchas");
+                ResultSet set = sqLite.getResults(connection, stmt);
+                while(set.next()){
+                    captchas.add(set.getString("id") + ":" + set.getInt("sol") + ":" + set.getString("uid"));
                 }
-            }else System.out.println("No valid captchas found in file.");
+            }catch (Exception e){
+                new ExceptionCatcher(e);
+            }
         }
         api.addMessageCreateListener(new MessageListener(this));
         if(config.getSetting("production")){
@@ -126,31 +135,6 @@ public final class NewMain {
                     e.printStackTrace();
                 }
             }
-        }
-    }
-    /*!--------------------------------------------------!*/
-    /*!--------------------------------------------------! Captcha Loader*/
-    public void loadCaptcha(){
-        sqLite.openConnection();
-        try{
-            PreparedStatement stmt = sqLite.getConnection().prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS captchas(" +
-                            "id TEXT NOT NULL" +
-                            "sol INT NOT NULL" +
-                            "uid TEXT NOT NULL" +
-                            ");"
-                    );
-            if(!sqLite.execute(stmt)){
-                System.out.println("Error when tried to work with SQLite! Shutting down!");
-                System.exit(0);
-            }
-            stmt = sqLite.getConnection().prepareStatement("SELECT * FROM TABLE captchas;");
-            ResultSet set = sqLite.getResults(stmt);
-            while(set.next()){
-                captchas.add(set.getString("id") + ":" + set.getInt("sol") + ":" + set.getString("uid"));
-            }
-        }catch (Exception e){
-            new ExceptionCatcher(e);
         }
     }
     /*!--------------------------------------------------!*/

@@ -1,5 +1,6 @@
 package me.inao.botforgod.listeners;
 
+import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.classes.Log;
 import me.inao.botforgod.commands.Command;
 import me.inao.botforgod.NewMain;
@@ -13,6 +14,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 import java.awt.*;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,8 +53,19 @@ public final class MessageListener implements MessageCreateListener {
                 }
                 if(captcha != null){
                     instance.getCaptchas().remove(captcha);
-                    File file = new FileOperation().getFile("captcha.txt");
-                    new FileOperation().removeFromFile(file, captcha);
+                    try{
+                        Connection connection = instance.getSqLite().openConnection();
+                        if(connection == null){
+                            instance.getSqLite().openConnection();
+                        }
+                        PreparedStatement stmt = connection.prepareStatement(
+                                "DELETE FROM captchas WHERE id = ?"
+                        );
+                        stmt.setString(1, captcha.split(":")[0]);
+                        instance.getSqLite().execute(connection, stmt);
+                    }catch (Exception e){
+                        new ExceptionCatcher(e);
+                    }
                     event.getMessage().getChannel().asServerTextChannel().get().delete("Solved captcha");
                     break;
                 }
@@ -91,8 +105,5 @@ public final class MessageListener implements MessageCreateListener {
                 break;
             }
         }
-    }
-    private void delCap(Captcha c){
-        instance.getCaptchas().remove(c);
     }
 }

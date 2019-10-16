@@ -7,32 +7,27 @@ import java.sql.*;
 
 @Getter
 public class SQLite {
-    private Connection connection;
 
-    public void openConnection(){
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:captcha.sqlite")){
-            if(connection != null){
-                System.out.println("Cannot detect captcha.sqlite.. Creating..");
-            }
-            this.connection = connection;
-            return;
-        }catch (Exception e){
-            new ExceptionCatcher(e);
-        }
-        this.connection = null;
-    }
-    public boolean execute(PreparedStatement stmt){
+    public Connection openConnection(){
         try{
-            if(stmt.execute()){
-                return true;
-            }
+            Class.forName("org.sqlite.JDBC");
+            return DriverManager.getConnection("jdbc:sqlite:captcha.sqlite");
         }catch (Exception e){
             new ExceptionCatcher(e);
         }
-        return false;
+        return null;
+    }
+    public void execute(Connection connection, PreparedStatement stmt){
+        try{
+            stmt.execute();
+            stmt.close();
+            connection.close();
+        }catch (Exception e){
+            new ExceptionCatcher(e);
+        }
     }
 
-    public ResultSet getResults(PreparedStatement stmt){
+    public ResultSet getResults(Connection connection, PreparedStatement stmt){
        try{
            return stmt.executeQuery();
        }catch (Exception e){

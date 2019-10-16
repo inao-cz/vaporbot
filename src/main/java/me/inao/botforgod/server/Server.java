@@ -12,7 +12,7 @@ public class Server {
     }
     public void startServer(){
         try{
-            try(ServerSocket socket = new ServerSocket(Integer.getInteger(instance.getConfig().getOption("remotePort")))){
+            try(ServerSocket socket = new ServerSocket(Integer.parseInt(instance.getConfig().getOption("externalPort")))){
                 while(true){
                     new Connection(instance, socket.accept()).start();
                 }

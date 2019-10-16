@@ -1,7 +1,9 @@
 package me.inao.botforgod.server;
 
+import com.google.gson.Gson;
 import me.inao.botforgod.NewMain;
 import me.inao.botforgod.classes.ExceptionCatcher;
+import me.inao.botforgod.classes.Log;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -21,10 +23,13 @@ public class Connection extends Thread{
         try{
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
-            String[] command = new AesUtility(instance).getDecrypted(reader.readLine()).split("§");
+            String json = new AesUtility(instance).getDecrypted(reader.readLine());
+            Packet object = new Gson().fromJson(json, Packet.class);
             for(String key : instance.getConfig().getOption("allowedKeys").split(",")){
-                if(command[0].equals(key)){
-                    exec(command);
+                if(object.getToken().equals(key)){
+                    if(exec(object.getAction(), object.getOrigin(), object.getMessage())){
+                        new Log("Executed " + object.getAction() + " sent from " + socket.getInetAddress());
+                    }
                     break;
                 }
             }
@@ -41,7 +46,7 @@ public class Connection extends Thread{
         }
     }
 
-    private boolean exec(String[] args){
+    private boolean exec(String action, String origin, String message){
 
         return true;
     }

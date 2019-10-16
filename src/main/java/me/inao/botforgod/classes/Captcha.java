@@ -11,6 +11,7 @@ import org.javacord.api.entity.permission.PermissionsBuilder;
 import org.javacord.api.entity.user.User;
 import java.awt.*;
 import java.io.File;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -67,24 +68,19 @@ public class Captcha {
                 .addPermissionOverwrite(instance.getServer().getRolesByName("@everyone").get(0), new PermissionsBuilder().setDenied(PermissionType.READ_MESSAGES).build())
                 .create()
                 .join();
-        instance.getCaptchas().add(imgName + ":" + result + ":" + user.getIdAsString());
-//        File file = new FileOperation().getFile("captcha.txt");
-//        new FileOperation().writeFile(file, imgName + ":" + result+ ":" + user.getIdAsString() + "\n");
-
         try{
-            if(instance.getSqLite().getConnection() == null){
-                instance.getSqLite().openConnection();
-            }
-            PreparedStatement stmt = instance.getSqLite().getConnection().prepareStatement("INSERT INTO captchas VALUES (?, ?, ?)");
+            Connection connection = instance.getSqLite().openConnection();
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO captchas VALUES (?, ?, ?)");
             stmt.setString(1, imgName);
             stmt.setInt(2, result);
             stmt.setString(3, user.getIdAsString());
-            if(!instance.getSqLite().execute(stmt)){
-                System.out.println("Failed to insert captcha data.");
-            }
+            instance.getSqLite().execute(connection, stmt);
         }catch (Exception e){
             new ExceptionCatcher(e);
         }
+        instance.getCaptchas().add(imgName + ":" + result + ":" + user.getIdAsString());
+//        File file = new FileOperation().getFile("captcha.txt");
+//        new FileOperation().writeFile(file, imgName + ":" + result+ ":" + user.getIdAsString() + "\n");
 
         new Message("Captcha", instance.getConfig().getMessage("messageCaptchaWelcome", null, null), Color.BLACK, new File(imgName + ".png"), channel);
     }

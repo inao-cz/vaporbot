@@ -12,13 +12,19 @@ import org.javacord.api.entity.permission.PermissionsBuilder;
 import org.javacord.api.util.logging.ExceptionLogger;
 import java.awt.*;
 import java.io.File;
+import java.util.TimerTask;
 
-public class Gitlab {
+public class Gitlab extends TimerTask {
     private NewMain instance;
     private JsonParser parser = new JsonParser();
     private String changelog;
     public Gitlab(NewMain instance) {
         this.instance = instance;
+    }
+    @Override
+    public void run(){
+        if(instance.getConfig().getSetting("Gitlab") && instance.getConfig().getSetting("production")) check();
+        else if(!instance.getConfig().getSetting("Gitlab")) new Log("Disabling AutoUpdate Check isn't secure!");
     }
     void sendUpdate(TextChannel channel){
         new MessageBuilder().setEmbed(
