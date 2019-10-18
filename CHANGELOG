@@ -6,8 +6,14 @@
         "+ AES Encryption of communication",
         "+ Fixed Captcha mapping",
         "+ Config setting 'externalServer'",
+        "+ Config setting 'Reload'",
         "+ Config option 'externalPort'",
         "+ Config option 'aesKey'",
-        "+ Config option 'aesIv'"
+        "+ Config option 'aesIv'",
+        "+ Command 'Reload'",
+        "+ Command 'GenKey'",
+        "+ Command 'GenAccKey'",
+        "+ New git branch 'WiP'",
+        "_ This branch contains mainly Work in Progress modules and testing releases."
     ]
 }
