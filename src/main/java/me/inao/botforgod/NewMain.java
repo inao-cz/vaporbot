@@ -110,8 +110,11 @@ public final class NewMain {
         new Approve(this);
         new Count(this);
         new Delete(this);
+        new GenKey(this);
+        new GenSrvKey(this);
         new Mute(this);
         new Nicksgen(this);
+        new Reload(this);
         new Skid(this);
         new Ticket(this);
         new Thanos(this);

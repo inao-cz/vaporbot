@@ -28,32 +28,25 @@ public class Connection extends Thread{
             Packet object = new Gson().fromJson(json, Packet.class);
             for(String key : instance.getConfig().getOption("allowedKeys").split(",")){
                 if(object.getToken().equals(key)){
-                    if(exec(object.getAction())){
+                    if(exec(object.getAction(), object.getMessage(), object.getOrigin(), object.getChannel())){
                         new Log("Executed " + object.getAction() + " sent from " + socket.getInetAddress());
                     }
                     break;
                 }
             }
-
         }catch (Exception e){
             new ExceptionCatcher(e);
         }
-        finally{
-            try{
-                socket.close();
-            }catch (Exception e){
-                new ExceptionCatcher(e);
-            }
-        }
     }
 
-    private boolean exec(String name){
+    private boolean exec(String name, String message, String origin, String cid){
         for(Action exec : instance.getServerActions()){
             if(exec.getName().equals(name)){
-                exec.onAction(exec.getMessage(), exec.getOrigin(), exec.getChannel());
+                exec.onAction(instance, message, origin, instance.getApi().getChannelById(cid).get());
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void send(String message){
