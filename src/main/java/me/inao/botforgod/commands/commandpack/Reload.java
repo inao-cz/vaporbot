@@ -14,9 +14,10 @@ public class Reload extends Command {
 
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
-        if(message.getAuthor().isServerAdmin()){
-            instance.loadConfig();
+        if(!message.getAuthor().isServerAdmin()){
+            return;
         }
+        instance.loadConfig();
         new me.inao.botforgod.utils.Message(message.getAuthor(), "Reloaded", "Reload complete..", Color.GREEN, message.getChannel());
     }
 }
