@@ -18,7 +18,9 @@ public class GenKey extends Command {
 
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
-        if(message.getAuthor().isServerAdmin()){
+        if(!message.getAuthor().isServerAdmin()){
+            return;
+        }
             String key = new AesUtility(instance).getKey();
             String iv = new AesUtility(instance).getIv();
             message.getAuthor().asUser().ifPresent(user ->
@@ -33,5 +35,4 @@ public class GenKey extends Command {
                                             this))
                     ).send(user));
         }
-    }
 }

@@ -15,6 +15,9 @@ public class GenSrvKey extends Command {
    }
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
+       if(!message.getAuthor().isServerAdmin()){
+           return;
+       }
         message.getAuthor().asUser().ifPresent(user ->
                 new MessageBuilder().setEmbed(
                         new EmbedBuilder()
