@@ -85,5 +85,10 @@
             <version>13.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.flickr4java</groupId>
+            <artifactId>flickr4java</artifactId>
+            <version>3.0.2</version>
+        </dependency>
     </dependencies>
 </project>

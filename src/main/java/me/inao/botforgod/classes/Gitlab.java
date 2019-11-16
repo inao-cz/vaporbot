@@ -36,7 +36,7 @@ public class Gitlab extends TimerTask {
     }
 
     private String getChangelog(){
-        return parser.getGitlabJson(getString("repository/files/CHANGELOG/raw?ref=master"), String.valueOf(instance.getVersion()));
+        return parser.getGitlabJson(getString("repository/files/CHANGELOG/raw?ref=WiP"), String.valueOf(instance.getVersion()));
     }
 
     private String getString(String surl){

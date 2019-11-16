@@ -200,7 +200,6 @@ Section: APIs (Datatype: String [= text])
 Class Diagram (with Dependencies)
 </h3>
 
-![diagram](https://i.imgur.com/mv6QN4z.png)
 
 <h3>
 Generated files
@@ -209,4 +208,26 @@ Generated files
 <p align="center"><strong>DO NOT TOUCH THESE FILES SINCE IT CAN BREAK THE BOT</strong></p>
 
 1. **Version.txt** - File generated for AutoUpdate Reminder.
-2. **Captcha.sql** - SQLite File, created for captcha mapping.
+2. **Captcha.sqllite** - SQLite File, created for captcha mapping.
+
+<h3>
+Remote server
+</h3>
+<p>Since this bot comes with, essentially, unlimited possibilities for integration, I will show you how to make them</p>
+
+<h4>
+Classes
+</h4>
+
+**Server.java** - First, multithreaded class. Server starts as own thread to then start multiple threads, one for every connection.
+**Connection.java** - Class that's being executed when connection occurs
+**Packet.java** - Formula class. This class is being used to create formula for decoded packet and to get data.
+**AesUtility.java** - AES-256 encryption. Since today it's unsecure to send anything in plaintext trough the internet, bot does support AES-256 encrypting and decrypting.
+
+<h4>
+How does it work
+</h4>
+
+This server uses `TCP` for communication and **doesn't return any answers**. That means, you can send correct packet and everything will be executed or you can send malformed packet, bot won't return any answer.
+Only way to see if it works is that you will see message of the success or logged message about execution.
+

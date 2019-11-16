@@ -1,19 +1,10 @@
 {
-    "33": [
-        "+ Documentation",
-        "+ SQLite support",
-        "+ External addons support",
-        "+ AES Encryption of communication",
-        "+ Fixed Captcha mapping",
-        "+ Config setting 'externalServer'",
-        "+ Config setting 'Reload'",
-        "+ Config option 'externalPort'",
-        "+ Config option 'aesKey'",
-        "+ Config option 'aesIv'",
-        "+ Command 'Reload'",
-        "+ Command 'GenKey'",
-        "+ Command 'GenAccKey'",
-        "+ New git branch 'WiP'",
+    "34": [
+        "+ Captcha channel delete listener",
+        "+ Captcha auto kicker",
+        "+ Server backuper (WiP)",
+        "+ Image Captcha (WiP)",
+        "+ Vote command (WiP)",
         "_ This branch contains mainly Work in Progress modules and testing releases."
     ]
 }

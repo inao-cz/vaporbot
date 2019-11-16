@@ -31,37 +31,39 @@
   },
   "settings": {
     "production": true,
-    "Antipihoda": false,
+    "Antipihoda": true,
     "Approve": false,
-    "Bans": false,
-    "Captcha": false,
+    "Bans": true,
+    "Captcha": true,
     "Count": false,
     "ConsoleLog": true,
-    "Delete": true,
+    "Delete": false,
     "externalServer": false,
-    "Gitlab": true,
+    "Gitlab": false,
     "Help": true,
     "Mute": false,
-    "MessageLog": true,
+    "MessageLog": false,
     "Nicksgen": false,
     "Reload": true,
-    "Skid": false,
     "Ticket": true,
     "Thanos": true,
+    "Vote": true,
     "Youtube": true
   },
   "options":{
     "prefix": "!",
-    "thanosGroupBlacklist": "Nitro Booster;YouTube;Donator",
+    "thanosGroupBlacklist": "Admin;Friends;Nitro Booster;YouTube;Donator",
     "aesKey": "",
     "aesIv": "",
-    "externalPort": "2668",
+    "externalPort": "",
     "allowedKeys": ""
   },
   "apis": {
     "discordProductionApi": "",
     "discordTestingApi": "",
     "YouTubeDataApi": "",
-    "SkidServerUrl": ""
+    "SkidServerUrl": "",
+    "FlickrApiKey": "",
+    "FlickrSharedSecret": ""
   }
 }

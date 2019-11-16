@@ -1,0 +1,681 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "messages",
+    "settings",
+    "options",
+    "apis"
+  ],
+  "properties": {
+    "messages": {
+      "$id": "#/properties/messages",
+      "type": "object",
+      "title": "The Messages Schema",
+      "required": [
+        "messageGenericFail",
+        "messageGenericSuccess",
+        "messageGenericNoPerms",
+        "messageGenericArgsErr",
+        "messageAntipihodaInGroup",
+        "messageAntipihodaJoined",
+        "messageApproveAlready",
+        "messageBannedSuccess",
+        "messageCountgameComplete",
+        "messageCountgameCreate",
+        "messageCountgameClosed",
+        "messageCaptchaWelcome",
+        "messageKeyGenerated",
+        "messageMuteSuccess",
+        "messageNicksgenErrNums",
+        "messageNicksgenLimit",
+        "messageNicksgenMinus",
+        "messageNicksgenSuccess",
+        "messageUnmuteNoMutes",
+        "messageUnmuteSuccess",
+        "messageUnmuteNotMuted",
+        "messageYoutubeAlreadyLinked",
+        "messageYoutubeNotValidId",
+        "messageYoutubeAlreadyLinking",
+        "messageYoutubePM",
+        "messageYoutubeSuccess",
+        "messageYoutubeInvalid",
+        "messageYoutubeProcessNotStarted"
+      ],
+      "properties": {
+        "messageGenericFail": {
+          "$id": "#/properties/messages/properties/messageGenericFail",
+          "type": "string",
+          "title": "The Messagegenericfail Schema",
+          "default": "",
+          "examples": [
+            "Sorry, \"%command%\" has failed. Report this to admins."
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageGenericSuccess": {
+          "$id": "#/properties/messages/properties/messageGenericSuccess",
+          "type": "string",
+          "title": "The Messagegenericsuccess Schema",
+          "default": "",
+          "examples": [
+            "Yaaay, \"%command%\" has been executed successfully. :smiley:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageGenericNoPerms": {
+          "$id": "#/properties/messages/properties/messageGenericNoPerms",
+          "type": "string",
+          "title": "The Messagegenericnoperms Schema",
+          "default": "",
+          "examples": [
+            "Sorry, you don't have enough permissions to use \"%command%\" :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageGenericArgsErr": {
+          "$id": "#/properties/messages/properties/messageGenericArgsErr",
+          "type": "string",
+          "title": "The Messagegenericargserr Schema",
+          "default": "",
+          "examples": [
+            "Sorry, not enough or too much arguments provided. Use !help to learn about \"%command%\""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageAntipihodaInGroup": {
+          "$id": "#/properties/messages/properties/messageAntipihodaInGroup",
+          "type": "string",
+          "title": "The Messageantipihodaingroup Schema",
+          "default": "",
+          "examples": [
+            "Sorry, you are already in that group :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageAntipihodaJoined": {
+          "$id": "#/properties/messages/properties/messageAntipihodaJoined",
+          "type": "string",
+          "title": "The Messageantipihodajoined Schema",
+          "default": "",
+          "examples": [
+            ":confetti_ball: Congratulations :confetti_ball:\nYou just joined Anti-Pihoda group!"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageApproveAlready": {
+          "$id": "#/properties/messages/properties/messageApproveAlready",
+          "type": "string",
+          "title": "The Messageapprovealready Schema",
+          "default": "",
+          "examples": [
+            "Wait, you want to do double-approve? It's not needed :slight_smile:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageBannedSuccess": {
+          "$id": "#/properties/messages/properties/messageBannedSuccess",
+          "type": "string",
+          "title": "The Messagebannedsuccess Schema",
+          "default": "",
+          "examples": [
+            "User \"%user%\" (ID: \"%id%\") has been banned."
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageCountgameComplete": {
+          "$id": "#/properties/messages/properties/messageCountgameComplete",
+          "type": "string",
+          "title": "The Messagecountgamecomplete Schema",
+          "default": "",
+          "examples": [
+            "Congrats, \"%user%\" has completed CountGame :smiley:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageCountgameCreate": {
+          "$id": "#/properties/messages/properties/messageCountgameCreate",
+          "type": "string",
+          "title": "The Messagecountgamecreate Schema",
+          "default": "",
+          "examples": [
+            "CountGame has been created. You can only count in this channel from now on until game ends :smiley: . Number that should be reached is %number%"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageCountgameClosed": {
+          "$id": "#/properties/messages/properties/messageCountgameClosed",
+          "type": "string",
+          "title": "The Messagecountgameclosed Schema",
+          "default": "",
+          "examples": [
+            "CountGame has been closed by \"%user%\". :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageCaptchaWelcome": {
+          "$id": "#/properties/messages/properties/messageCaptchaWelcome",
+          "type": "string",
+          "title": "The Messagecaptchawelcome Schema",
+          "default": "",
+          "examples": [
+            "Hello. To get access to our server, please complete Captcha."
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageKeyGenerated": {
+          "$id": "#/properties/messages/properties/messageKeyGenerated",
+          "type": "string",
+          "title": "The Messagekeygenerated Schema",
+          "default": "",
+          "examples": [
+            "Key has been generated.. Please, use this key in config.json and command reload to load new configuration.\n\n%key%\n%iv%"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageMuteSuccess": {
+          "$id": "#/properties/messages/properties/messageMuteSuccess",
+          "type": "string",
+          "title": "The Messagemutesuccess Schema",
+          "default": "",
+          "examples": [
+            "User \"%user%\" (ID: \"%id%\") has been muted."
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageNicksgenErrNums": {
+          "$id": "#/properties/messages/properties/messageNicksgenErrNums",
+          "type": "string",
+          "title": "The Messagenicksgenerrnums Schema",
+          "default": "",
+          "examples": [
+            "Two out of three arguments should be numeric values. Please use !help to learn about \"%command%\""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageNicksgenLimit": {
+          "$id": "#/properties/messages/properties/messageNicksgenLimit",
+          "type": "string",
+          "title": "The Messagenicksgenlimit Schema",
+          "default": "",
+          "examples": [
+            "You are not allowed to generate more than 50 nicknames at once. Sorry boa :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageNicksgenMinus": {
+          "$id": "#/properties/messages/properties/messageNicksgenMinus",
+          "type": "string",
+          "title": "The Messagenicksgenminus Schema",
+          "default": "",
+          "examples": [
+            "Trying to generate minus or 0? How? :open_mouth:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageNicksgenSuccess": {
+          "$id": "#/properties/messages/properties/messageNicksgenSuccess",
+          "type": "string",
+          "title": "The Messagenicksgensuccess Schema",
+          "default": "",
+          "examples": [
+            "All warez nicknames generated. Sent to the PM!"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageUnmuteNoMutes": {
+          "$id": "#/properties/messages/properties/messageUnmuteNoMutes",
+          "type": "string",
+          "title": "The Messageunmutenomutes Schema",
+          "default": "",
+          "examples": [
+            "Sorry, no users are muted right now :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageUnmuteSuccess": {
+          "$id": "#/properties/messages/properties/messageUnmuteSuccess",
+          "type": "string",
+          "title": "The Messageunmutesuccess Schema",
+          "default": "",
+          "examples": [
+            "User \"%user%\" (ID: \"%id%\") has been unmuted."
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageUnmuteNotMuted": {
+          "$id": "#/properties/messages/properties/messageUnmuteNotMuted",
+          "type": "string",
+          "title": "The Messageunmutenotmuted Schema",
+          "default": "",
+          "examples": [
+            "Sorry, user isn't muted :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubeAlreadyLinked": {
+          "$id": "#/properties/messages/properties/messageYoutubeAlreadyLinked",
+          "type": "string",
+          "title": "The Messageyoutubealreadylinked Schema",
+          "default": "",
+          "examples": [
+            "You are already linked with YouTube account!"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubeNotValidId": {
+          "$id": "#/properties/messages/properties/messageYoutubeNotValidId",
+          "type": "string",
+          "title": "The Messageyoutubenotvalidid Schema",
+          "default": "",
+          "examples": [
+            "It looks like not valid YouTube Channel ID has been provided. Please use ID that looks like this 'UC_x5XG1OV2P6uZZ5FSM9Ttw'"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubeAlreadyLinking": {
+          "$id": "#/properties/messages/properties/messageYoutubeAlreadyLinking",
+          "type": "string",
+          "title": "The Messageyoutubealreadylinking Schema",
+          "default": "",
+          "examples": [
+            "You are already in linking process. Please link your channel"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubePM": {
+          "$id": "#/properties/messages/properties/messageYoutubePM",
+          "type": "string",
+          "title": "The Messageyoutubepm Schema",
+          "default": "",
+          "examples": [
+            "Use this code in 'About' tab on your YouTube channel. After that, send command '!youtube verify' to #bot-commands :smiley:"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubeSuccess": {
+          "$id": "#/properties/messages/properties/messageYoutubeSuccess",
+          "type": "string",
+          "title": "The Messageyoutubesuccess Schema",
+          "default": "",
+          "examples": [
+            "YouTube channel \"%ytchannel%\" was verified by user \"%user%\". Subscribers when verified: %subs%"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubeInvalid": {
+          "$id": "#/properties/messages/properties/messageYoutubeInvalid",
+          "type": "string",
+          "title": "The Messageyoutubeinvalid Schema",
+          "default": "",
+          "examples": [
+            "Cannot validate YouTube Account. This can mean API is down, YouTube account with this ID wasn't found or subscribers are under 100. Removing started link process"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "messageYoutubeProcessNotStarted": {
+          "$id": "#/properties/messages/properties/messageYoutubeProcessNotStarted",
+          "type": "string",
+          "title": "The Messageyoutubeprocessnotstarted Schema",
+          "default": "",
+          "examples": [
+            "Started validation process not found. :frowning:"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "settings": {
+      "$id": "#/properties/settings",
+      "type": "object",
+      "title": "The Settings Schema",
+      "required": [
+        "production",
+        "Antipihoda",
+        "Approve",
+        "Bans",
+        "Captcha",
+        "Count",
+        "ConsoleLog",
+        "Delete",
+        "externalServer",
+        "Gitlab",
+        "Help",
+        "Mute",
+        "MessageLog",
+        "Nicksgen",
+        "Reload",
+        "Ticket",
+        "Thanos",
+        "Vote",
+        "Youtube"
+      ],
+      "properties": {
+        "production": {
+          "$id": "#/properties/settings/properties/production",
+          "type": "boolean",
+          "title": "The Production Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Antipihoda": {
+          "$id": "#/properties/settings/properties/Antipihoda",
+          "type": "boolean",
+          "title": "The Antipihoda Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Approve": {
+          "$id": "#/properties/settings/properties/Approve",
+          "type": "boolean",
+          "title": "The Approve Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "Bans": {
+          "$id": "#/properties/settings/properties/Bans",
+          "type": "boolean",
+          "title": "The Bans Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Captcha": {
+          "$id": "#/properties/settings/properties/Captcha",
+          "type": "boolean",
+          "title": "The Captcha Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Count": {
+          "$id": "#/properties/settings/properties/Count",
+          "type": "boolean",
+          "title": "The Count Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "ConsoleLog": {
+          "$id": "#/properties/settings/properties/ConsoleLog",
+          "type": "boolean",
+          "title": "The Consolelog Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Delete": {
+          "$id": "#/properties/settings/properties/Delete",
+          "type": "boolean",
+          "title": "The Delete Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "externalServer": {
+          "$id": "#/properties/settings/properties/externalServer",
+          "type": "boolean",
+          "title": "The Externalserver Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "Gitlab": {
+          "$id": "#/properties/settings/properties/Gitlab",
+          "type": "boolean",
+          "title": "The Gitlab Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "Help": {
+          "$id": "#/properties/settings/properties/Help",
+          "type": "boolean",
+          "title": "The Help Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Mute": {
+          "$id": "#/properties/settings/properties/Mute",
+          "type": "boolean",
+          "title": "The Mute Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "MessageLog": {
+          "$id": "#/properties/settings/properties/MessageLog",
+          "type": "boolean",
+          "title": "The Messagelog Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "Nicksgen": {
+          "$id": "#/properties/settings/properties/Nicksgen",
+          "type": "boolean",
+          "title": "The Nicksgen Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "Reload": {
+          "$id": "#/properties/settings/properties/Reload",
+          "type": "boolean",
+          "title": "The Reload Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Ticket": {
+          "$id": "#/properties/settings/properties/Ticket",
+          "type": "boolean",
+          "title": "The Ticket Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Thanos": {
+          "$id": "#/properties/settings/properties/Thanos",
+          "type": "boolean",
+          "title": "The Thanos Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Vote": {
+          "$id": "#/properties/settings/properties/Vote",
+          "type": "boolean",
+          "title": "The Vote Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Youtube": {
+          "$id": "#/properties/settings/properties/Youtube",
+          "type": "boolean",
+          "title": "The Youtube Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        }
+      }
+    },
+    "options": {
+      "$id": "#/properties/options",
+      "type": "object",
+      "title": "The Options Schema",
+      "required": [
+        "prefix",
+        "thanosGroupBlacklist",
+        "aesKey",
+        "aesIv",
+        "externalPort",
+        "allowedKeys"
+      ],
+      "properties": {
+        "prefix": {
+          "$id": "#/properties/options/properties/prefix",
+          "type": "string",
+          "title": "The Prefix Schema",
+          "default": "",
+          "examples": [
+            "!"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "thanosGroupBlacklist": {
+          "$id": "#/properties/options/properties/thanosGroupBlacklist",
+          "type": "string",
+          "title": "The Thanosgroupblacklist Schema",
+          "default": "",
+          "examples": [
+            "Admin;Friends;Nitro Booster;YouTube;Donator"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "aesKey": {
+          "$id": "#/properties/options/properties/aesKey",
+          "type": "string",
+          "title": "The Aeskey Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "aesIv": {
+          "$id": "#/properties/options/properties/aesIv",
+          "type": "string",
+          "title": "The Aesiv Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "externalPort": {
+          "$id": "#/properties/options/properties/externalPort",
+          "type": "string",
+          "title": "The Externalport Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "allowedKeys": {
+          "$id": "#/properties/options/properties/allowedKeys",
+          "type": "string",
+          "title": "The Allowedkeys Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "apis": {
+      "$id": "#/properties/apis",
+      "type": "object",
+      "title": "The Apis Schema",
+      "required": [
+        "discordProductionApi",
+        "discordTestingApi",
+        "YouTubeDataApi",
+        "SkidServerUrl",
+        "FlickrApiKey",
+        "FlickrSharedSecret"
+      ],
+      "properties": {
+        "discordProductionApi": {
+          "$id": "#/properties/apis/properties/discordProductionApi",
+          "type": "string",
+          "title": "The Discordproductionapi Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "discordTestingApi": {
+          "$id": "#/properties/apis/properties/discordTestingApi",
+          "type": "string",
+          "title": "The Discordtestingapi Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "YouTubeDataApi": {
+          "$id": "#/properties/apis/properties/YouTubeDataApi",
+          "type": "string",
+          "title": "The Youtubedataapi Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "SkidServerUrl": {
+          "$id": "#/properties/apis/properties/SkidServerUrl",
+          "type": "string",
+          "title": "The Skidserverurl Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "FlickrApiKey": {
+          "$id": "#/properties/apis/properties/FlickrApiKey",
+          "type": "string",
+          "title": "The Flickrapikey Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "FlickrSharedSecret": {
+          "$id": "#/properties/apis/properties/FlickrSharedSecret",
+          "type": "string",
+          "title": "The Flickrsharedsecret Schema",
+          "default": "",
+          "examples": [
+            ""
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    }
+  }
+}

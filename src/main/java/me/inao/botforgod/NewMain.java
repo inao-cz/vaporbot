@@ -98,6 +98,9 @@ public final class NewMain {
             }
         }
         api.addMessageCreateListener(new MessageListener(this));
+        if(config.getSetting("Captcha")){
+            api.addServerChannelDeleteListener(new ChannelDeleteListener(this));
+        }
         if(config.getSetting("production")){
             api.addServerMemberJoinListener(new JoinListener(this));
             if(config.getSetting("Bans")) api.addServerMemberBanListener(new BanListener(this));
