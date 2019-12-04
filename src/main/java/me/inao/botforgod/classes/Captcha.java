@@ -12,7 +12,6 @@ import java.awt.*;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Captcha {

@@ -35,11 +35,11 @@ public final class Count extends Command {
                 Long.parseLong(args[1]);
             }
         }catch (NumberFormatException | NullPointerException e){
-            new me.inao.botforgod.utils.Message("Error!", instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
+            new me.inao.botforgod.utils.Message(this, instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
             return;
         }
         if(Long.parseLong(args[0]) < 3){
-            new me.inao.botforgod.utils.Message("Error!", instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
+            new me.inao.botforgod.utils.Message(this, instance.getConfig().getMessage("messageGenericFail", null, this), Color.RED, message.getChannel());
             return;
         }
         if(args.length == 1){

@@ -1,5 +1,6 @@
 package me.inao.botforgod.utils;
 
+import me.inao.botforgod.commands.Command;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -18,6 +19,14 @@ public final class Message {
                 .setAuthor(author.getDisplayName(), null, author.getAvatar())
         ).send(channel);
     }
+    public Message(String title, String message, String footer, Color color, TextChannel channel){
+        new MessageBuilder().setEmbed(new EmbedBuilder()
+                .setTitle(title)
+                .setDescription(message)
+                .setColor(color)
+                .setFooter(footer)
+        ).send(channel);
+    }
     public Message(String title, String message, Color color, TextChannel channel){
         new MessageBuilder().setEmbed(new EmbedBuilder().setTitle(title).setDescription(message).setColor(color)).send(channel);
     }
@@ -32,5 +41,12 @@ public final class Message {
     }
     public Message(String title, String message, Color color, ServerTextChannel channel){
         new MessageBuilder().setEmbed(new EmbedBuilder().setTitle(title).setDescription(message).setColor(color)).send(channel).exceptionally(ExceptionLogger.get());
+    }
+    public Message(Command command, String message, Color color, TextChannel channel){
+        new MessageBuilder().setEmbed(new EmbedBuilder()
+                .setTitle("Command " + command.getCommand())
+                .setDescription(message)
+                .setColor(color)
+        ).send(channel);
     }
 }

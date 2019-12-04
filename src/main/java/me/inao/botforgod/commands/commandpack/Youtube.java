@@ -70,7 +70,7 @@ public class Youtube extends Command {
             for (State record : users){
                 if(record.getUserid().equals(message.getAuthor().getIdAsString())){
                     if(work(record)){
-                        new me.inao.botforgod.utils.Message("YouTube Verfiy",
+                        new me.inao.botforgod.utils.Message(this,
                                 instance.getConfig().getMessage("messageYoutubeSuccess", new String[][]{
                                         {"%ytchannel%", record.getUsername()},
                                         {"%user%", message.getAuthor().getDisplayName()},

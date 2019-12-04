@@ -18,7 +18,7 @@ public final class Thanos extends Command {
     @Override
     public void onCommand(Message message, NewMain instance, String[] args) {
         if(!message.getAuthor().canKickUsersFromServer()){
-            new me.inao.botforgod.utils.Message("Error!", instance.getConfig().getMessage(
+            new me.inao.botforgod.utils.Message(this, instance.getConfig().getMessage(
                     "messageGenericNoPerms",
                     null,
                     this
@@ -42,7 +42,7 @@ public final class Thanos extends Command {
         for(int i = 0; i <= users.size()/2; i++){
             chosen.append(chooseRandom(users, chosen.toString()).getDiscriminatedName()).append("\n");
         }
-        new me.inao.botforgod.utils.Message("Thanos *snaps* with fingers!", "**Chosen are**\n" + chosen.toString(), Color.GREEN, message.getChannel());
+        new me.inao.botforgod.utils.Message(this, "**Chosen are**\n" + chosen.toString(), Color.GREEN, message.getChannel());
     }
     private User chooseRandom(List<User> collection, String chosen){
         User user = collection.get(new Random().nextInt(collection.size()));

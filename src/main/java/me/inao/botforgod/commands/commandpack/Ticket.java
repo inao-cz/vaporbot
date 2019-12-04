@@ -72,7 +72,7 @@ public final class Ticket extends Command {
                 message = "Ticket ID: " + id + " has been closed.";
                 break;
         }
-        new me.inao.botforgod.utils.Message("Ticket", message, Color.BLACK,
+        new me.inao.botforgod.utils.Message(this, message, Color.BLACK,
                 instance.getServer().getChannelsByName("ticket-log").get(0).asTextChannel().get());
     }
 }

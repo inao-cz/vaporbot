@@ -11,7 +11,7 @@ public class SQLite {
     public Connection openConnection(){
         try{
             Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection("jdbc:sqlite:captcha.sqlite");
+            return DriverManager.getConnection("jdbc:sqlite:db.sqlite");
         }catch (Exception e){
             new ExceptionCatcher(e);
         }

@@ -3,6 +3,7 @@ package me.inao.botforgod;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
+import me.inao.botforgod.classes.CaptchaKicker;
 import me.inao.botforgod.classes.ExceptionCatcher;
 import me.inao.botforgod.classes.Gitlab;
 import me.inao.botforgod.commands.Command;
@@ -37,6 +38,7 @@ public final class NewMain {
     private DiscordApi api;
     private Config config;
     private SQLite sqLite = new SQLite();
+    private Timer timer = new Timer();
     @Setter
     private Countgame countgame = null;
     private int version = 33;
@@ -48,6 +50,8 @@ public final class NewMain {
         }else{
             api = new DiscordApiBuilder().setToken(config.getApi("discordTestingApi")).login().join();
         }
+        api.setMessageCacheSize(5, 3600);
+        api.setAutomaticMessageCacheCleanupEnabled(true);
         if(config.getSetting("externalServer")){
             if(config.getOption("aesKey").equalsIgnoreCase("null")) {
                 System.out.println("I can see you have externalServer enabled without AES key. Generating..");
@@ -73,9 +77,9 @@ public final class NewMain {
         /*!--------------------------------------------------! Listener start*/
         System.out.println("Starting listeners!");
         api.getServers().forEach(server -> this.server = server);
-        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new Gitlab(this), 0L, 3600000L);
         if(this.getConfig().getSetting("Captcha")){
+            api.addServerChannelDeleteListener(new ChannelDeleteListener(this));
             Connection connection = getSqLite().openConnection();
             try{
                 PreparedStatement stmt = connection.prepareStatement(
@@ -96,15 +100,33 @@ public final class NewMain {
             }catch (Exception e){
                 new ExceptionCatcher(e);
             }
+            timer.scheduleAtFixedRate(new CaptchaKicker(this), 0L, 1800000L);
         }
+        if(this.getConfig().getSetting("Backup")){
+            Connection connection = this.sqLite.openConnection();
+            try{
+                PreparedStatement stmt;
+                connection = getSqLite().openConnection();
+                stmt = connection.prepareStatement(
+                        "CREATE TABLE IF NOT EXISTS backup" +
+                                "(" +
+                                "type text not null," +
+                                "name text," +
+                                "data text," +
+                                "perm_groups text," +
+                                "perm_integers text" +
+                                ");"
+                );
+                sqLite.execute(connection, stmt);
+            }catch (Exception e){
+                new ExceptionCatcher(e);
+            }
+        }
+
         api.addMessageCreateListener(new MessageListener(this));
-        if(config.getSetting("Captcha")){
-            api.addServerChannelDeleteListener(new ChannelDeleteListener(this));
-        }
-        if(config.getSetting("production")){
-            api.addServerMemberJoinListener(new JoinListener(this));
-            if(config.getSetting("Bans")) api.addServerMemberBanListener(new BanListener(this));
-        }
+        if(config.getSetting("Bans")) api.addServerMemberBanListener(new BanListener(this));
+        if(config.getSetting("production")) api.addServerMemberJoinListener(new JoinListener(this));
+
         /*!--------------------------------------------------!*/
 
         /*!--------------------------------------------------! Command registration*/
@@ -122,6 +144,7 @@ public final class NewMain {
         new Ticket(this);
         new Thanos(this);
         new Unmute(this);
+        new Vote(this);
         new Youtube(this);
         new Ping(this);
         new Help(this); //help should be last command.

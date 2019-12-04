@@ -28,7 +28,7 @@ public final class Unmute extends Command {
             return;
         }
         if(instance.getMuted().remove(args[0])){
-            new me.inao.botforgod.utils.Message("Unmute", instance.getConfig().getMessage("messageUnmuteSuccess", new String[][]{
+            new me.inao.botforgod.utils.Message(this, instance.getConfig().getMessage("messageUnmuteSuccess", new String[][]{
                     {"%user%", instance.getApi().getUserById(args[0]).join().getDiscriminatedName()},
                     {"%id%", args[0]}
             }, this), Color.GREEN, message.getServer().get().getChannelsByName("public-mute").get(0).asTextChannel().get());

@@ -1,5 +1,6 @@
 package me.inao.botforgod.classes;
 
+import lombok.Getter;
 import me.inao.botforgod.NewMain;
 import org.javacord.api.entity.user.User;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,6 +9,7 @@ public class Captcha2 {
     private int solution;
     private User user;
     private NewMain instance;
+    @Getter
     private String[] categories = {"people", "trafficlight", "bus", "firehydrant", "stairs", "other"};
     public Captcha2(NewMain instance, User user){
         this.instance = instance;
@@ -16,7 +18,7 @@ public class Captcha2 {
     private int random(int min, int max){
         return ThreadLocalRandom.current().nextInt(min, max);
     }
-    private int category(int mode){
+    public int category(int mode){
         if(mode == 0){
             return random(1, 5);
         }
@@ -28,8 +30,7 @@ public class Captcha2 {
     private String getResult(){
         return getTextCategory(category(0));
     }
-    public String crawler(){
-        
-        return "cs";
+    public String crawler(int category){
+        return new FlickrHelper(instance).getUrl(new FlickrHelper(instance).getCollection(getTextCategory(category)));
     }
 }

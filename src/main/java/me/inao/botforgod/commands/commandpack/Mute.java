@@ -25,7 +25,7 @@ public final class Mute extends Command {
             return;
         }
         instance.getMuted().add(args[0]);
-        new me.inao.botforgod.utils.Message("Mute",
+        new me.inao.botforgod.utils.Message(this,
                 instance.getConfig().getMessage("messageMuteSuccess", new String[][]{
                         {"%user%", instance.getApi().getUserById(args[0]).join().getDiscriminatedName()},
                         {"%id%", args[0]}

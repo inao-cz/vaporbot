@@ -1,9 +1,9 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://example.com/root.json",
+  "$id": "schema.json",
   "type": "object",
-  "title": "The Root Schema",
+  "title": "Vaporbot-Schema",
   "required": [
     "messages",
     "settings",
@@ -338,6 +338,7 @@
         "Approve",
         "Bans",
         "Captcha",
+        "CaptchaKicker",
         "Count",
         "ConsoleLog",
         "Delete",
@@ -394,6 +395,15 @@
           "$id": "#/properties/settings/properties/Captcha",
           "type": "boolean",
           "title": "The Captcha Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "CaptchaKicker": {
+          "$id": "#/properties/settings/properties/CaptchaKicker",
+          "type": "boolean",
+          "title": "The CaptchaKicker Schema",
           "default": false,
           "examples": [
             true
@@ -537,7 +547,8 @@
         "aesKey",
         "aesIv",
         "externalPort",
-        "allowedKeys"
+        "allowedKeys",
+        "captchaKickerTime"
       ],
       "properties": {
         "prefix": {
@@ -597,6 +608,16 @@
           "default": "",
           "examples": [
             ""
+          ],
+          "pattern": "^(.*)$"
+        },
+        "captchaKickerTime": {
+          "$id": "#/properties/options/properties/captchaKickerTime",
+          "type": "string",
+          "title": "The CaptchaKickerTime Schema",
+          "default": "3600",
+          "examples": [
+            "7200"
           ],
           "pattern": "^(.*)$"
         }
